@@ -1,13 +1,14 @@
-<!DOCTYPE HTML>
+﻿<!DOCTYPE HTML>
 <html>
-	<head>
-		<title>미하이 스토어 공동구매 - join</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-        <link rel="stylesheet" href="assets/css/main.css" />
-        <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+<head>
+    <title>미하이 스토어 공동구매 - join</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
-	</head>
+</head>
 	<body class="is-preload">
 		<!-- Wrapper -->
 			<div id="wrapper">
@@ -38,19 +39,19 @@
 					</nav>
 
 				<!-- Main -->
-					<div id="main">
+					<div id="root">
 						<div class="inner">
 							<h1>회원가입</h1>
-							<form id="loginall">
+							<form id="loginall" v-on:submit="onSubmitForm">
                                 <fieldset>
                                     <div>
                                         <div>
-											<input type="text" id="idarea" placeholder="아이디" required>
-											<input type="password" id="pwdarea" placeholder="&nbsp;비밀번호" required>
-											<input type="password" id="pwdcarea" placeholder="&nbsp;비밀번호 확인" required>
-											<input type="text" id="namearea" placeholder="이름" required>
-											<input type="text" id="phonearea" placeholder="핸드폰 번호" required>
-											<input type="email" id="emailarea" placeholder="&nbsp;이메일" required>
+											<input type="text" ref="id" v-model="id" id="idarea"  placeholder="아이디" required>
+											<input type="password" ref="password" v-model="password" id="pwdarea" placeholder="비밀번호" required>
+											<input type="password" id="pwdcarea" v-model="passwordC" placeholder="비밀번호 확인" required>
+											<input type="text" ref="name" id="namearea" v-model="name" placeholder="이름" required>
+											<input type="text" ref="phoneNum"id="phonearea" v-model="phoneNum" placeholder="핸드폰 번호" required>
+											<input type="email" ref="email" id="emailarea" v-model="email" placeholder="이메일" required>
                                         </div>
                     
                                         <div>
@@ -69,6 +70,43 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
-
+        <script>
+            const app = new Vue({   //login regex & save data
+                el: '#root',
+                data: {
+                    id: '',
+                    password: '',
+                    passwordC: '',
+                    name: '',
+                    phoneNum: '',
+                    email: ''
+                },
+                methods: {
+                    onSubmitForm(e) {
+                        e.preventDefault();
+                        if (this.password != this.passwordC) {
+                            this.$ref.password.focus();
+                            alert('비밀번호가 서로 다릅니다. 다시 입력해 주십시오.');
+                        }
+                        else if (regE11(this.password)) {
+                            this.$ref.password.focus();
+                            alert('허용되지 않는 비밀번호입니다. 영문, 숫자를 조합해 8자리이상으로 입력해 주십시오.');
+                        }  
+                        else if (this.email.length<6 || !regE.test(email)) {
+                            alert('잘못된 이메일주소 입니다. 다시 확인하고 입력해 주십시오.');
+                        }
+                        else if (phoneNumRegex(this.phoneNum)) {
+                            alert('잘못된 핸드폰 번호입니다. 다시 확인하고 입력해 주십시오.');
+                        }
+                        else if (idRegex(this.id)){
+                            alert('잘못된 아이디 형식입니다. 영문, 숫자를 조합해 8자리이상으로 입력해 주십시오.');
+                        }
+                        else {
+                            alert('회원가입 성공');
+                        }
+                    }
+                }
+            });
+        </script>
 	</body>
 </html>
