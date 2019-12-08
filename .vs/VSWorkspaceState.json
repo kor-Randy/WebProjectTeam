@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\project"
+    "\\project",
+    "\\project\\assets"
   ],
-  "SelectedNode": "\\project\\join.html",
+  "SelectedNode": "\\project\\index.html",
   "PreviewInSolutionExplorer": false
 }
