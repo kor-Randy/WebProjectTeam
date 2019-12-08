@@ -29,7 +29,11 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;}
 /* 추가 */
-#idarea{
+.loadMoreButton{
+    margin: 30px;
+    text-align: center;
+}
+#idarea {
     width: 450px;
     height: 54.5px;
     margin: 30px 0px 0px 30px;
