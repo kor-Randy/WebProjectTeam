@@ -43,13 +43,12 @@
 </template>
 
 <script>
-import './assets/js/jquery.js'
-import images from '@/components/images.vue'
-export default {
+  import images from '@/components/images.vue'
+  export default {
   name: 'App',
-  components: { images }
-}
+    components: { images }
+  }
 </script>
 
-<style src="./assets/css/main.css"></style>
-<style src="./assets/css/noscript.css"></style>
+<style src="@/assets/css/main.css"></style>
+<style src="@/assets/css/noscript.css"></style>
