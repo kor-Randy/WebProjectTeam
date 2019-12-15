@@ -138,14 +138,29 @@
                                 imagePath: 'images/pic12.jpg',
                                 description: 'Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.'
                             },
+                            {
+                                name: '상품 13',
+                                imagePath: 'images/pic12.jpg',
+                                description: 'Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.'
+                            },
+                            {
+                                name: '상품 14',
+                                imagePath: 'images/pic12.jpg',
+                                description: 'Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.'
+                            },
+                            {
+                                name: '상품 15',
+                                imagePath: 'images/pic12.jpg',
+                                description: 'Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.'
+                            },
                         ],
-                        nextcount: 13
+                        nextcount: 16
                     };
                     
                 },
                 methods: {
                     addImage: function () {
-                        for (var i = 1; i < 30; i++){
+                        for (var i = 0; i < 30; i++){
                             var n = i % 9;
                             if (!n) { n = 9; }
                             this.images.push({
