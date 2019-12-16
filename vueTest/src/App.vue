@@ -5,29 +5,9 @@
     <div id="wrapper">
 
       <!-- Header -->
-      <header id="header">
-        <div class="inner">
-
-          <!-- Nav -->
-          <nav>
-            <ul>
-              <li><a href="#menu">Menu</a></li>
-            </ul>
-          </nav>
-
-        </div>
-      </header>
-
+      <menuHeader></menuHeader>
       <!-- Menu -->
-      <nav id="menu">
-        <h2>Menu</h2>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="login.html">로그인</a></li>
-          <li><a href="join.html">회원가입</a></li>
-          <li><a href="question.html">문의하기</a></li>
-        </ul>
-      </nav>
+      <menu_ id="menu"></menu_>
       <!-- Main -->
       <div id="main">
         <div class="inner">
@@ -44,9 +24,11 @@
 
 <script>
   import images from '@/components/images.vue'
+  import menu_ from '@/components/menu.vue'
+  import menuHeader from '@/components/menuHeader.vue'
   export default {
   name: 'App',
-    components: { images }
+    components: { images, menuHeader, menu_ }
   }
 </script>
 
