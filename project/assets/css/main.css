@@ -36,7 +36,8 @@ footer, header, hgroup, menu, nav, section {
 #idarea {
     width: 450px;
     height: 54.5px;
-    margin: 30px 0px 0px 30px;
+	margin: 30px 0px 0px 30px;
+	display: inline;
 }
 
 #pwdarea{
@@ -75,6 +76,26 @@ footer, header, hgroup, menu, nav, section {
 
 #questionarea{
 	margin: 8.2px 0px 0px 30px;
+}
+#pdarea{
+    width: 450px;
+    height: 54.5px;
+    margin: 8.2px 0px 0px 30px;
+}
+#pricearea{
+    width: 450px;
+    height: 54.5px;
+    margin: 8.2px 0px 0px 30px;
+}
+#registerarea{
+	margin: 8.2px 0px 0px 30px;
+	width: 700px;
+    height: 54.5px;
+}
+#file{
+    width: 450px;
+    height: 54.5px;
+    margin: 8.2px 0px 0px 30px;
 }
 
 #product_left{
@@ -2616,6 +2637,36 @@ input, select, textarea {
 			.button.primary:active {
 				background-color: #ee5f81;
 			}
+		
+			input[type="submit"].checkbutton,
+			input[type="reset"].checkbutton,
+			input[type="button"].checkbutton,
+			button.checkbutton,
+			.button.checkbutton {
+				width: 150px;
+				height: 63px;
+				padding: 11px 26px;
+				margin: 20px 0px 0px 30px;
+				box-shadow: none;
+				background-color: #585858;
+				color: #ffffff !important;
+			}
+	
+				input[type="submit"].checkbutton:hover,
+				input[type="reset"].checkbutton:hover,
+				input[type="button"].checkbutton:hover,
+				button.checkbutton:hover,
+				.button.checkbutton:hover {
+					background-color: #f2849e;
+				}
+	
+				input[type="submit"].checkbutton:active,
+				input[type="reset"].checkbutton:active,
+				input[type="button"].checkbutton:active,
+				button.checkbutton:active,
+				.button.checkbutton:active {
+					background-color: #ee5f81;
+				}
 
 		input[type="submit"].disabled, input[type="submit"]:disabled,
 		input[type="reset"].disabled,
