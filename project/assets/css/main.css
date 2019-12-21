@@ -2667,6 +2667,34 @@ input, select, textarea {
 				.button.checkbutton:active {
 					background-color: #ee5f81;
 				}
+		
+		input[type="submit"].loadMoreButton,
+			input[type="reset"].loadMoreButton,
+			input[type="button"].loadMoreButton,
+			button.loadMoreButton,
+			.button.loadMoreButton {
+				padding: 11px 26px;
+				margin: 20px 0px 0px 30px;
+				box-shadow: none;
+				background-color: #585858;
+				color: #ffffff !important;
+			}
+	
+				input[type="submit"].loadMoreButton:hover,
+				input[type="reset"].loadMoreButton:hover,
+				input[type="button"].loadMoreButton:hover,
+				button.loadMoreButton:hover,
+				.button.loadMoreButton:hover {
+					background-color: #f2849e;
+				}
+	
+				input[type="submit"].loadMoreButton:active,
+				input[type="reset"].loadMoreButton:active,
+				input[type="button"].loadMoreButton:active,
+				button.loadMoreButton:active,
+				.button.loadMoreButton:active {
+					background-color: #ee5f81;
+				}
 
 		input[type="submit"].disabled, input[type="submit"]:disabled,
 		input[type="reset"].disabled,
