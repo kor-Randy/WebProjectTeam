@@ -48,7 +48,7 @@
                                     <div>
                                         <div>
                                             <input type="text"  v-model="id" id="idarea"  placeholder="아이디" required>
-                                            <input type="button" class="checkbutton" id="repeatcheck" value="중복 확인">
+                                            <input type="button" class="checkbutton" v-on:click="checkForOverlapping" id="repeatcheck" value="중복 확인">
 
 											<input type="password" v-model="password" id="pwdarea" placeholder="비밀번호" required>
 											<input type="password" id="pwdcarea" v-model="passwordC" placeholder="비밀번호 확인" required>
@@ -133,10 +133,20 @@
                                 alert('중복된 아이디거나 다른 이유로 요청이 실패했습니다.');
                             }
                         }
+                    },
+                    checkForOverlapping : function (event) {
+                        if (event) {
+                            if(OverlappCheck(this.id)){
+                                alert('사용가능한 아이디 입니다.');
+                            }
+                            else{
+                                alert('이미 존재하는 아이디 입니다.');
+                            }
+                        }
                     }
                 }
             });
-            function requestJoin(data) {    /*request*/
+            function requestJoin(data) {    /*  회원가입 요청  */
 /************************************************************************************/
     /*              console.log("try requsetJoin");
                     const xhr = new XMLHttpRequest();
@@ -154,6 +164,9 @@
                     };                                                                 */
                 /***************************************************************************************/
                 return true;    /* DB에 업로드 성공-> true반환*/
+            }
+	    function OverlappCheck(id){   /* 중복확인 */
+	    return true; /* true : 중복없음 false : 중복된 아이디 */
             }
         </script>
 	</body>
