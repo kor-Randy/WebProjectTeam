@@ -74,10 +74,14 @@
                     price: '',          /*상품 가격*/
                     Amount: '',  /*상품 총 개수 */
                 },
-                watch: {
+               watch: {
                      price() {
                         return this.price = this.price.replace(/[^0-9]/g, '');
+                    },
+                    productName() {
+                        return this.productName = this.productName.replace(/[_]/g, '');
                     }
+			
                 },
                 methods: {
                     onSubmitForm(e) {
