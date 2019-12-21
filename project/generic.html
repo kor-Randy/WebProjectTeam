@@ -4,6 +4,7 @@
 		<title>미하이 스토어 공동구매 - generic</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
@@ -44,24 +45,23 @@
                                 href="index.html"><h2 >미하이 스토어 공동구매 사이트</h2></a>
 							<h1>상품 이름</h1>
 
-							<div class="product">
+							<div class="product" id="root">
 								<div id="product_left">
 									<img src="images/pic01.jpg" width="500px" height="500px" alt="" />
 								</div>
 
 								<div id="product_right">
-									<form id="order" method="">
+									<form id="order"  v-on:submit="onSubmitForm" method="">
 										<h2 style="margin: 8.2px 0px 0px 30px;">상품 설명</h2>
 										<h3 style="margin: 8.2px 0px 0px 30px;">상품 가격 ex)<span style="font-size: 1.3em">34,000</span>원</h3>
-										<input type="text" id="countarea" placeholder="수량" required>
-
+										<input type="text" v-model="count" id="countarea" placeholder="수량" required>
 
 										<!-- -------------주문 시 주소 입력하는 부분 ----------------->
-										<input type="text" id="postcode" onclick="execDaumPostcode()" placeholder="우편번호" required>
+										<input type="text" v-model="postcode" id="postcode" onclick="execDaumPostcode()" placeholder="우편번호" required>
 										<input type="button" class="checkbutton" onclick="execDaumPostcode()" value="우편번호 찾기">
-										<input type="text" id="address" placeholder="주소" required>
-										<input type="text" id="detailAddress" placeholder="상세주소" required>
-										<input type="text" id="extraAddress" placeholder="참고항목">
+										<input type="text" v-model="address" id="address" placeholder="주소" required>
+										<input type="text" v-model="detailAddress" id="detailAddress" placeholder="상세주소" required>
+										<input type="text" v-mode="extraAddress" id="extraAddress" placeholder="참고항목">
 
 										<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 										<script>
@@ -148,6 +148,57 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			<script>
+            const app = new Vue({   //login regex & save data
+                el: '#root',
+                data: {
+                    postcode: '',
+                    address: '',
+                    detailAddress: '',
+                    extraAddress: '',
+                    count: '',
+					price: '',
+					description: '',
+					productName: ''
+                },
+                watch: {
+                    postcode() {
+                        return this.postcode = this.postcode.replace(/[^0-9]/g, '');
+                    },
+                    count() {
+                        return this.count = this.count.replace(/[^0-9]/g, '');
+                    }
+                },
+                methods: {
+                    onSubmitForm(e) {
+                           if(this.count>0){
+							   if(order(this)){
+								   alert('주문 완료');
+								   location.href = "index.html";
+							   }
+								else{
+									alert('주문 실패');
+								}
+						   }
+						   else{
+									alert('주문 실패');
+								}
+                    }
+                }
+            });
+			function getProduct(data){
+				data.price = '';	/* 상품 가격 */
+				data.description = '';	/* 상품 설명 */
+			}
+			function order(data){
+/*				data.productName 	상품 이름으로 검색
+				data.postcode		우편번호
+				data.address		주소
+				data.detailAddress	상세주소
+				data.extraAddress	참고사항
+				data.count			주문할 수량	*/
+			}
+			</script>
 
 	</body>
 </html>
