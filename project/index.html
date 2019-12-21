@@ -73,15 +73,15 @@
 					</nav>
 				<!-- Main -->
 					<div id="main">
-						<div class="inner">
+						<div class="inner" id="root">
 							<header>
 								<h1>미하이 스토어 공동구매 사이트</h1>
                             </header>
                             
-                            <form action="" method="">
-                                <input type="text" id="searcharea" placeholder="상품을 검색하세요." required>
-                                <input type="submit" class="checkbutton"  id="search" value="검색">
-                            </form>
+                            <div>
+                                <input type="text" v-model="searchText" id="searcharea" placeholder="상품을 검색하세요." required>
+                                <input type="submit" v-on:click="search" class="checkbutton"  id="search" value="검색">
+                            </div>
                             <hr style="width: 100%;">
                             <products />
 						</div>
@@ -148,11 +148,22 @@
         </script>
         <script>
             const app = new Vue({
-                el: 'products',
+                el: '#root',
+                data: {
+                    searchText: ''
+                },
+                methods:{
+                    search: function() {
+                        setPdnameCookie(this.searchText);
+                        /*상품이름 쿠키에 넣고 generic으로 이동*/
+                        location.href = "generic.html";
+                    }
+                }
             });
-        </script>
-        <script>
-            
+            function setPdnameCookie(n){
+                $.cookie('pdname', n, { expires: 1, path: '/' });// 세션 쿠키 생성 - 브라우저를 닫으면 없으집니다. 
+                $.cookie('pdname', n);
+            }
         </script>
 	</body>
 </html>
