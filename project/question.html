@@ -4,10 +4,16 @@
 		<title>미하이 스토어 공동구매 - question</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script src="assets/js/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
 	<body class="is-preload">
+		<script>
+			var id = $.cookie('AUTH');
+		</script>
 		<!-- Wrapper -->
 			<div id="wrapper">
 
@@ -39,13 +45,13 @@
 
 				<!-- Main -->
 					<div id="main">
-						<div class="inner">
+						<div class="inner" id="root">
 								<a style="width: 450px; height: 50px; display: inline-block; border: none;" 
                                 href="index.html"><h2 >미하이 스토어 공동구매 사이트</h2></a>
 							<h1>문의하기</h1>
-							<form>
-								<input type="text" id="idarea" placeholder="제목" required><br>
-								<textarea id="questionarea" cols="40" rows="2" placeholder="문의사항을 적어주세요." required>
+							<form v-on:submit="onSubmitForm">
+								<input type="text" v-model="questionTitle" id="idarea" placeholder="제목" required><br>
+								<textarea v-model="questionBody" id="questionarea" cols="40" rows="2" placeholder="문의사항을 적어주세요." required>
 									</textarea><br>
 								<input type="submit" class="primary" value="제출하기" required>
 							</form>
@@ -59,6 +65,36 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			<script>
+            const app = new Vue({   //login regex & save data
+                el: '#root',
+                data: {
+                    questionTitle: '',
+					questionBody:''
+                },
+                methods: {
+                    onSubmitForm(e) {
+                        e.preventDefault();
+                        if(sendQuestion(this)){	
+							alert('문의사항이 등록 되었습니다.');
+							location.href = "index.html";
+						}
+						else{
+							alert('ERROR');
+						}
+                    }
+                }
+            });
+			</script>
+			<script>
+				function sendQuestion(data){
+/*					id						유저 아이디
+					data.questionTitle		문의사항 제목
+					data.questionBody		문의사항 내용	*/
+					return true;
+				}
+			</script>
 
 	</body>
+	
 </html>
