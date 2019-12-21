@@ -4,11 +4,24 @@
 		<title>미하이 스토어 공동구매 - index</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script src="assets/js/jquery.min.js"></script>
+        	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
 	<body class="is-preload">
+	<script>
+		loggined = false;
+		var id = ($.cookie('AUTH'));
+		if ((id!='null') && (id!=undefined) && (id!=null)) {
+			loggined = true;
+		}
+		else{
+			alert('로그인 후 사용가능 합니다.');
+			location.href = "login.html";
+		}
+	</script>
 		<!-- Wrapper -->
 			<div id="wrapper">
 
@@ -31,7 +44,7 @@
 						<h2>Menu</h2>
 						<ul>
 							<li><a href="index.html">Home</a></li>
-							<li><a href="login.html">로그인</a></li>
+							<li><a href="login.html"><script>if(loggined) document.write ( '로그아웃' ); else document.write('로그인'); </script></a></li>
 							<li><a href="join.html">회원가입</a></li>
 							<li><a href="register.html">등록하기</a></li>
 							<li><a href="question.html">문의하기</a></li>
