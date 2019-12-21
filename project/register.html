@@ -58,14 +58,13 @@
                         	<a style="width: auto; height: auto; display: inline-block; border: none;"
                             href="index.html"><h2 >미하이 스토어 공동구매 사이트</h2></a>
 							<h1>등록하기</h1>
-							<form action="upload.php" method="post" enctype="multipart/form-data" name="">
+							<form id="form" v-on:submit="onSubmitForm" action="upload.php" method="post" enctype="multipart/form-data" name="">
 								<input type="text" v-model="productName" id="pdarea" name="pdname" placeholder="상품명" required>
 								<input type="text" v-model="price" id="pricearea" placeholder="가격" required>
 								<input type="text" v-model="Amount" id="maxarea" placeholder="총 수량">
                                 <textarea id="registerarea" v-model="description" placeholder=" 내용을 적어주세요."></textarea><br>
 
                                 <input multiple="multiple" type="file" id = "upload" name="upload[]"><br>
-
 								<input type="submit" class="primary" value="상품 등록하기" required>
 							</form>
 						</div>
@@ -96,7 +95,7 @@
 							e.preventDefault();
 							if (writeProduct(this, getID() )) {
                                 alert('상품등록 완료');
-								location.href = "index.html";
+                                document.getElementById('form').submit();
 							}
                             else{
                                 alert('상품등록 실패');
