@@ -11,6 +11,17 @@
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
 	<body class="is-preload">
+	<script>
+		loggined = true;
+		var id = ($.cookie('AUTH'));
+		if ((id!='null') && (id!=undefined) && (id!=null)) {
+			loggined = true;
+		}
+		// else{
+		// 	alert('로그인 후 사용가능 합니다.');
+		// 	location.href = "login.html";
+		// }
+	</script>
 		<!-- Wrapper -->
 			<div id="wrapper">
 
@@ -44,7 +55,13 @@
 						<div class="inner">
 							<header>
 								<h1>미하이 스토어 공동구매 사이트</h1>
-							</header>
+                            </header>
+                            
+                            <form action="" method="">
+                                <input type="text" id="searcharea" placeholder="상품을 검색하세요." required>
+                                <input type="submit" class="checkbutton"  id="search" value="검색">
+                            </form>
+                            <hr style="width: 100%;">
                             <products />
 						</div>
 					</div>
