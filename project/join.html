@@ -73,6 +73,8 @@
 		<script src="assets/js/breakpoints.min.js"></script>
 		<script src="assets/js/util.js"></script>
 		<script src="assets/js/main.js"></script>
+		<script src="assets/js/core.min.js"></script>
+		<script src="assets/js/sha256.min.js"></script>
         <script>
             const app = new Vue({   //login regex & save data
                 el: '#root',
@@ -125,49 +127,92 @@
                             alert('잘못된 아이디 형식입니다. 영문, 숫자를 조합해 4자리이상 12자리 이하로 입력해 주십시오.');
                         }
                         else {  //All fine
-                            if (requestJoin(this)) {    /* updateDBRequest */
-                                alert('회원가입 성공. 로그인 해 주세요.');
-                                location.href = "login.html";
-                            }
-                            else {
-                                alert('중복된 아이디거나 다른 이유로 요청이 실패했습니다.');
-                            }
+                           requestJoin(this);   /* updateDBRequest */
+                               
+                           
                         }
                     },
                     checkForOverlapping : function (event) {
                         if (event) {
-                            if(OverlappCheck(this.id)){
-                                alert('사용가능한 아이디 입니다.');
-                            }
-                            else{
-                                alert('이미 존재하는 아이디 입니다.');
-                            }
+
+                            OverlappCheck(this.id);
                         }
                     }
                 }
             });
             function requestJoin(data) {    /*  회원가입 요청  */
-/************************************************************************************/
-    /*              console.log("try requsetJoin");
-                    const xhr = new XMLHttpRequest();
-                    xhr.open('POST', 'http://localhost:3000/api/accounts/');
-                    xhr.setRequestHeader('Content-type', 'application/json');
-                    xhr.send(JSON.stringify({ id: data.id, pass: data.password, name: data.name, phone: data.phoneNum, email: data.email }));
 
-                    xhr.onreadystatechange = function (e) {
-                        if (xhr.readyState !== XMLHttpRequest.DONE) return;
-                        if (xhr.status === 201) { // 201: Created
-                            console.log(xhr.responseText);
-                        } else {
-                            console.log("Error!");
-                        }
-                    };                                                                 */
-                /***************************************************************************************/
-                return true;    /* DB에 업로드 성공-> true반환*/
+
+                const xhr = new XMLHttpRequest();
+          xhr.open('POST', 'http://localhost:3000/api/accounts/');
+          xhr.setRequestHeader('Content-type', 'application/json');
+
+          xhr.onreadystatechange = function (e) 
+          {
+            if (xhr.readyState !== XMLHttpRequest.DONE) return;
+
+            if(xhr.status === 201||xhr.status===200) 
+            { // 201: Created
+                alert('회원가입 성공. 로그인 해 주세요.');
+                                location.href = "login.html";
+            } 
+            else 
+            {
+                alert('중복된 아이디거나 다른 이유로 요청이 실패했습니다.');
             }
-	    function OverlappCheck(id){   /* 중복확인 */
-	    return true; /* true : 중복없음 false : 중복된 아이디 */
+
+
+
+
+          };
+
+          xhr.send(JSON.stringify({ 
+            "id":data.id
+          ,"pass":CryptoJS.SHA256(data.password).toString()
+          ,"name":data.name
+          ,"phone":data.phoneNum
+          ,"email":data.email}));
+
+            
+               
+            
+            
             }
+
+
+
+        function OverlappCheck(id)
+        {
+            console.log("account");
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', 'http://localhost:3000/api/accounts/'+id);
+      xhr.setRequestHeader('Content-type', 'application/json');
+
+xhr.onreadystatechange = function()
+{
+    if (xhr.readyState !== XMLHttpRequest.DONE) 
+          return;
+
+          if(xhr.status===404)
+          {
+            alert('사용가능한 아이디 입니다.');
+              return true;
+          }
+          else
+          {
+            alert('이미 존재하는 아이디 입니다.');
+              return false;
+          }
+};
+
+   
+      xhr.send(JSON.stringify({ 
+            "id":id
+          }));
+
+	     /* true : 중복없음 false : 중복된 아이디 */
+            
+    }
         </script>
 	</body>
 </html>
