@@ -40,25 +40,92 @@
 				<!-- Main -->
 					<div id="main">
 						<div class="inner">
-								<a style="width: 450px; height: 50px; display: inline-block; border: none;" 
+								<a style="width: auto; height: auto; display: inline-block; border: none;"
                                 href="index.html"><h2 >미하이 스토어 공동구매 사이트</h2></a>
 							<h1>상품 이름</h1>
 
 							<div class="product">
-								<div id="product_right">
-									<h2>상품 설명</h2>
-									<h3>상품 가격 ex)<span style="font-size: 1.3em">34,000</span>원</h3>
-									<input type="text" id="countarea" placeholder="수량" required>
-									<input type="submit" class="primary" value="주문하기" required>
-								</div>
 								<div id="product_left">
 									<img src="images/pic01.jpg" width="500px" height="500px" alt="" />
 								</div>
+
+								<div id="product_right">
+									<form id="order" method="">
+										<h2 style="margin: 8.2px 0px 0px 30px;">상품 설명</h2>
+										<h3 style="margin: 8.2px 0px 0px 30px;">상품 가격 ex)<span style="font-size: 1.3em">34,000</span>원</h3>
+										<input type="text" id="countarea" placeholder="수량" required>
+
+
+										<!-- -------------주문 시 주소 입력하는 부분 ----------------->
+										<input type="text" id="postcode" onclick="execDaumPostcode()" placeholder="우편번호" required>
+										<input type="button" class="checkbutton" onclick="execDaumPostcode()" value="우편번호 찾기">
+										<input type="text" id="address" placeholder="주소" required>
+										<input type="text" id="detailAddress" placeholder="상세주소" required>
+										<input type="text" id="extraAddress" placeholder="참고항목">
+
+										<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+										<script>
+											function execDaumPostcode() {
+												new daum.Postcode({
+													oncomplete: function(data) {
+														// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+														// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+														// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+														var addr = ''; // 주소 변수
+														var extraAddr = ''; // 참고항목 변수
+
+														//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+														if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+															addr = data.roadAddress;
+														} else { // 사용자가 지번 주소를 선택했을 경우(J)
+															addr = data.jibunAddress;
+														}
+
+														// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+														if(data.userSelectedType === 'R'){
+															// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+															// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+															if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+																extraAddr += data.bname;
+															}
+															// 건물명이 있고, 공동주택일 경우 추가한다.
+															if(data.buildingName !== '' && data.apartment === 'Y'){
+																extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+															}
+															// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+															if(extraAddr !== ''){
+																extraAddr = ' (' + extraAddr + ')';
+															}
+															// 조합된 참고항목을 해당 필드에 넣는다.
+															document.getElementById("extraAddress").value = extraAddr;
+														
+														} else {
+															document.getElementById("extraAddress").value = '';
+														}
+
+														// 우편번호와 주소 정보를 해당 필드에 넣는다.
+														document.getElementById('postcode').value = data.zonecode;
+														document.getElementById("address").value = addr;
+														// 커서를 상세주소 필드로 이동한다.
+														document.getElementById("detailAddress").focus();
+													}
+												}).open();
+											}
+										</script>
+										<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+										<!-- 주소 입력 끝 -->
+
+										<input type="submit" class="primary" value="주문하기">
+									</form>
+									
+
+								</div>
 							</div>
-							<hr style="width: 1344px;">
+							<hr style="width: 100%;">
 							<section class="product_images">
 								<article>
-									<img src="images/star.jpeg" alt="" />
+									<img src="images/pic01.jpg" alt="" />
 								</article>
 								<article>
 									<img src="images/pic02.jpg" alt="" />
