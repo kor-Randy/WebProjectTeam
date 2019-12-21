@@ -12,6 +12,13 @@
 	</head>
 	<body class="is-preload">
 	<script>
+		function getProductsInfo(){/* 모든 상품의 이름,설명 을 배열로 반환 */
+/* 예시 */       var prdArray = new Array("kau", "구글", "김치");
+                var descriptionArray = new Array("한국 항공대", "검색사이트","김치 설명");
+                var dataset = new Array(prdArray, descriptionArray);
+                return dataset;
+            }
+
 		loggined = true;
 		var id = ($.cookie('AUTH'));
 		if ((id!='null') && (id!=undefined) && (id!=null)) {
@@ -21,6 +28,20 @@
 		// 	alert('로그인 후 사용가능 합니다.');
 		// 	location.href = "login.html";
 		// }
+        var dataset = new Array();
+        
+        dataset = getProductsInfo();
+        var imageAr = 0;
+        var descriptionAr = 1;
+
+        var dataArray = new Array();
+        for (var i = 0; i < dataset[imageAr].length; i++){
+                dataArray.push({
+                name: dataset[imageAr][i],
+                imagePath: 'images/' + dataset[imageAr][i] + '_0' + '.jpg',
+                description: dataset[descriptionAr][i]
+            });
+        }
 	</script>
 		<!-- Wrapper -->
 			<div id="wrapper">
@@ -69,6 +90,7 @@
 
 		<!-- Scripts -->
 		<script src="assets/js/jquery.min.js"></script>
+        	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 		<script src="assets/js/browser.min.js"></script>
 		<script src="assets/js/breakpoints.min.js"></script>
 		<script src="assets/js/util.js"></script>
@@ -82,7 +104,7 @@
                             <span class="image">
                                 <img :src=image.imagePath alt=""/>
                             </span>
-                            <a href="generic.html">
+                            <a v-on:click="generic(image.name)">
                                 <h2>{{ image.name }}</h2>
                                 <div class="content">
                                     <p>{{ image.description }}</p>
@@ -96,85 +118,8 @@
                 </div>`,
                 data() {
                     return {
-                        images: [
-/*****************image 생성, 관리*****************/
-                            {
-                                name: '상품 1',
-                                imagePath: 'images/pic01.jpg',
-                                description: 'Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.'
-                            },
-                            {
-                                name: '상품 2',
-                                imagePath: 'images/pic02.jpg',
-                                description: 'Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.'
-                            },
-                            {
-                                name: '상품 3',
-                                imagePath: 'images/pic03.jpg',
-                                description: 'Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.'
-                            },
-                            {
-                                name: '상품 4',
-                                imagePath: 'images/pic04.jpg',
-                                description: 'Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.'
-                            },
-                            {
-                                name: '상품 5',
-                                imagePath: 'images/pic05.jpg',
-                                description: 'Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.'
-                            },
-                            {
-                                name: '상품 6',
-                                imagePath: 'images/pic06.jpg',
-                                description: 'Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.'
-                            },
-                            {
-                                name: '상품 7',
-                                imagePath: 'images/pic07.jpg',
-                                description: 'Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.'
-                            },
-                            {
-                                name: '상품 8',
-                                imagePath: 'images/pic08.jpg',
-                                description: 'Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.'
-                            },
-                            {
-                                name: '상품 9',
-                                imagePath: 'images/pic09.jpg',
-                                description: 'Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.'
-                            },
-                            {
-                                name: '상품 10',
-                                imagePath: 'images/pic10.jpg',
-                                description: 'Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.'
-                            },
-                            {
-                                name: '상품 11',
-                                imagePath: 'images/pic11.jpg',
-                                description: 'Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.'
-                            },
-                            {
-                                name: '상품 12',
-                                imagePath: 'images/pic12.jpg',
-                                description: 'Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.'
-                            },
-                            {
-                                name: '상품 13',
-                                imagePath: 'images/pic12.jpg',
-                                description: 'Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.'
-                            },
-                            {
-                                name: '상품 14',
-                                imagePath: 'images/pic12.jpg',
-                                description: 'Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.'
-                            },
-                            {
-                                name: '상품 15',
-                                imagePath: 'images/pic12.jpg',
-                                description: 'Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.'
-                            },
-                        ],
-                        nextcount: 16
+                        images: dataArray,
+                        nextcount: dataset[imageAr].length
                     };
                     
                 },
@@ -189,15 +134,26 @@
                                 description: 'Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.'
                             });
                         }
+                    },
+                    generic: function(n){
+                        setPdnameCookie(n);
+                        location.href = "generic.html";
                     }
                 }
-            })
+            });
+            function setPdnameCookie(n){
+                $.cookie('pdname', n, { expires: 1, path: '/' });// 세션 쿠키 생성 - 브라우저를 닫으면 없으집니다. 
+                $.cookie('pdname', n);
+            }
         </script>
         <script>
             const app = new Vue({
                 el: 'products',
             });
         </script>
-
+        <script>
+            
+        </script>
 	</body>
 </html>
+
