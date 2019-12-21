@@ -33,6 +33,10 @@ footer, header, hgroup, menu, nav, section {
     margin: 30px;
     text-align: center;
 }
+.checkbutton{
+	margin: 30px;
+	text-align: center;
+}
 #idarea {
     width: 450px;
     height: 54.5px;
@@ -2643,8 +2647,6 @@ input, select, textarea {
 			input[type="button"].checkbutton,
 			button.checkbutton,
 			.button.checkbutton {
-				width: 150px;
-				height: 63px;
 				padding: 11px 26px;
 				margin: 20px 0px 0px 30px;
 				box-shadow: none;
