@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML>
+<!DOCTYPE HTML>
 <html>
 <head>
     <title>미하이 스토어 공동구매 - join</title>
@@ -28,15 +28,16 @@
 					</header>
 
 				<!-- Menu -->
-					<nav id="menu">
-						<h2>Menu</h2>
-						<ul>
-							<li><a href="index.html">Home</a></li>
-							<li><a href="login.html">로그인</a></li>
-							<li><a href="join.html">회원가입</a></li>
-							<li><a href="question.html">문의하기</a></li>
-						</ul>
-					</nav>
+                <nav id="menu">
+                    <h2>Menu</h2>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="login.html">로그인</a></li>
+                        <li><a href="join.html">회원가입</a></li>
+                        <li><a href="register.html">등록하기</a></li>
+                        <li><a href="question.html">문의하기</a></li>
+                    </ul>
+                </nav>
 
 				<!-- Main -->
 					<div id="root">
@@ -46,7 +47,9 @@
                                 <fieldset>
                                     <div>
                                         <div>
-											<input type="text"  v-model="id" id="idarea"  placeholder="아이디" required>
+                                            <input type="text"  v-model="id" id="idarea"  placeholder="아이디" required>
+                                            <input type="button" class="checkbutton" id="repeatcheck" value="중복 확인">
+
 											<input type="password" v-model="password" id="pwdarea" placeholder="비밀번호" required>
 											<input type="password" id="pwdcarea" v-model="passwordC" placeholder="비밀번호 확인" required>
 											<input type="text" id="namearea" v-model="name" placeholder="이름" required>
