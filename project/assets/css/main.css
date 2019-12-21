@@ -37,6 +37,14 @@ footer, header, hgroup, menu, nav, section {
 	margin: 30px;
 	text-align: center;
 }
+#searcharea{
+	width: 450px;
+    height: 60px;
+	margin: 30px 0px 0px 30px;
+	border-bottom: 2px solid;
+	border-bottom-color : #585858;
+	display: inline;
+}
 #idarea {
     width: 450px;
     height: 54.5px;
@@ -80,6 +88,10 @@ footer, header, hgroup, menu, nav, section {
 
 #questionarea{
 	margin: 8.2px 0px 0px 30px;
+	width: 70%;
+	height: 300px !important;
+	overflow: visible !important;
+	border: 1px solid #c2c2c2;
 }
 #pdarea{
     width: 450px;
@@ -91,10 +103,42 @@ footer, header, hgroup, menu, nav, section {
     height: 54.5px;
     margin: 8.2px 0px 0px 30px;
 }
+#maxarea{
+    width: 450px;
+    height: 54.5px;
+    margin: 8.2px 0px 0px 30px;
+}
+
+
+#postcode{
+	width: 200px;
+    height: 50px;
+	margin: 8.2px 0px 0px 30px;
+	display: inline;
+}
+#address{
+	width: 450px;
+    height: 50px;
+    margin: 8.2px 0px 0px 30px;
+}
+#detailAddress{
+	width: 450px;
+    height: 50px;
+    margin: 8.2px 0px 0px 30px;
+}
+#extraAddress{
+	width: 450px;
+    height: 50px;
+    margin: 8.2px 0px 0px 30px;
+}
+
+
 #registerarea{
 	margin: 8.2px 0px 0px 30px;
-	width: 700px;
-    height: 54.5px;
+	width: 70%;
+	height: 300px !important;
+	overflow: visible !important;
+	border: 1px solid #c2c2c2;
 }
 #file{
     width: 450px;
@@ -103,15 +147,16 @@ footer, header, hgroup, menu, nav, section {
 }
 
 #product_left{
-	width: 500px;
-	height: 500px;
+	width: 45%;
+	height: auto;
 	margin: 30px;
+	display: inline-block;
 }
 #product_right{
-	width: 500px;
-	height: 500px;
+	width: 45%;
+	height: auto;
 	margin: 30px 30px;
-	float: right;
+	display: inline-block;
 }
 #countarea{
 	text-align: center;
@@ -2730,7 +2775,7 @@ input, select, textarea {
 			transition: transform 0.5s ease, opacity 0.5s ease;
 			position: relative;
 			width: 100%;
-			margin: 2.5em 0 0 50%;
+			margin: 2.5em 0 0 38%;
 		}
 
 			.product_images article > .image {
