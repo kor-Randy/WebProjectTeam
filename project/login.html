@@ -4,6 +4,9 @@
 		<title>미하이 스토어 공동구매 - login</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
         <link rel="stylesheet" href="assets/css/main.css" />
         <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
@@ -27,29 +30,27 @@
 					</header>
 
 				<!-- Menu -->
-				<nav id="menu">
-					<h2>Menu</h2>
-					<ul>
-						<li><a href="index.html">Home</a></li>
-						<li><a href="login.html">로그인</a></li>
-						<li><a href="join.html">회원가입</a></li>
-						<li><a href="register.html">등록하기</a></li>
-						<li><a href="question.html">문의하기</a></li>
-					</ul>
-				</nav>
+					<nav id="menu">
+						<h2>Menu</h2>
+						<ul>
+							<li><a href="index.html">Home</a></li>
+							<li><a href="login.html">로그인</a></li>
+							<li><a href="join.html">회원가입</a></li>
+							<li><a href="question.html">문의하기</a></li>
+						</ul>
+					</nav>
 
 				<!-- Main -->
 					<div id="main">
-						<div class="inner">
-								<a style="width: 450px; height: 50px; display: inline-block; border: none;" 
-                                href="index.html"><h2 >미하이 스토어 공동구매 사이트</h2></a>
+						<div class="inner" id="root">
+							<h2 href="index.html">미하이 스토어 공동구매 사이트</h2>
 							<h1>로그인</h1>
-							<form id="loginall">
+							<form id="loginall" v-on:submit="onSubmitForm">
                                 <fieldset>
                                     <div>
                                         <div>
-                                            <input type="text" id="idarea" placeholder="아이디" required>
-                                            <input type="password" id="pwdarea" placeholder="&nbsp;비밀번호" required>
+                                            <input type="text" v-model="id" id="idarea" placeholder="아이디" required>
+                                            <input type="password" v-model="password" id="pwdarea" placeholder="비밀번호" required>
                                         </div>
                     
                                         <div>
@@ -63,11 +64,46 @@
 			</div>
 
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+		<script>
+		    const app = new Vue({   //login regex & save data
+			el: '#root',
+			data: {
+			    id: '',
+			    password: '',
+			},
+			watch: {
+			    id(val) {
+				const reg = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+				if(reg.exec(val)!==null){
+				return this.id = this.id.slice(0,-1);
+				}
+			    }
+			},
+			methods: {
+			    onSubmitForm(e) {
+							e.preventDefault();
+							if (requestLogin(this)) { 
+								alert('로그인 성공');
+								$.cookie('AUTH', this.id, { expires: 7, path: '/' });// 세션 쿠키 생성 - 브라우저를 닫으면 없으집니다. 
+								$.cookie('AUTH', this.id);
+								location.href = "index.html";
+							}
+							else {
+								alert('로그인 실패! 아이디와 비밀번호를 확인해주세요.');
+							}
+						}
+			}
+		    });
+		    function requestLogin(data) {
+					//data.id /*아이디 전송*/
+					//data.password /*비밀번호 전송 */
+			return true;    /* LOGIN 성공-> true반환*/
+		    }
+		</script>
 
 	</body>
 </html>
