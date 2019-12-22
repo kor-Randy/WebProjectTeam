@@ -104,10 +104,10 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 			<script>
-			var pdid = $.cookie('pdid');
+			var pdname = $.cookie('pdname');
 			var imgArray = new Array();
 			for(var i=1; i < 9;i++){
-				var imagePath = 'images/' + pdid + '_'+ i + '.jpg';
+				var imagePath = 'images/' + pdname + '_'+ i + '.jpg';
 				imgArray[i-1] = {src: imagePath};
 			}
 			Vue.component('product', {
@@ -141,7 +141,7 @@
 					price: getPrice,
 					description: getDescription,
 					productName: pdname,
-					mainImg: 'images/' + pdid + '_0' + '.jpg',
+					mainImg: 'images/' + pdname + '_0' + '.jpg',
 					id: pdid
                 },
                 methods: {
