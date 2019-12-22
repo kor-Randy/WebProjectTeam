@@ -104,18 +104,10 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 			<script>
-			var pdid = ($.cookie('pdid'));
-			getProduct();
-			var getPrice;
-			getDescription;
-			var pdname = '';
-
-			function getProduct(){	
-/*				pdid 				상품 아이디로 검색*/
-				getPrice = 33000;	/* 상품 가격 */
-				getDescription = '함수로 생성된 상품 설명';	/* 상품 설명 */
-				pdname = '상품의 이름';
-			}
+			var pdid = $.cookie('pdid');
+			var getPrice = $.cookie('pdprice');
+			var getDescription = $.cookie('pddescription');
+			var pdname = $.cookie('pdname');
 
 			var imgArray = new Array();
 			for(var i=1; i < 9;i++){
