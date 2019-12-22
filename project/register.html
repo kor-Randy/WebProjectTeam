@@ -67,13 +67,14 @@
 
                                 <input multiple="multiple" type="file" id = "upload" name="upload[]"><br>
 								<input type="submit" class="primary" value="상품 등록하기" required>
-								<input type="hidden" id="pdid">
 							</form>
 						</div>
 					</div>
 			</div>
 
 		<!-- Scripts -->
+		<script src="assets/js/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 			<script src="assets/js/browser.min.js"></script>
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
@@ -100,7 +101,6 @@
                     onSubmitForm(e) {
 							e.preventDefault();
 							writeProduct(this, getID() ) ;
-
                               
 						}
                 }
@@ -112,32 +112,25 @@
 				const xhr = new XMLHttpRequest();
       xhr.open('POST', 'http://localhost:3000/api/things/');
       xhr.setRequestHeader('Content-type', 'application/json');
-
 xhr.onreadystatechange = function()
 {
     if (xhr.readyState !== XMLHttpRequest.DONE) 
           return;
-
           if(xhr.status===404)
           {
 			alert('등록에 실패하였습니다.');
           }
           else
           {
-
 			alert(xhr.responseText);
 			var js = JSON.parse(xhr.responseText);
 			alert(js['result']);
-
-			document.getElementById("pdid").value=js['result'];
-
-			alert(document.getElementById("pdid").value);
-
+			$.cookie('pdid', js['result'], {expires: 1, path: '/'});//.value=js['result'];
+			$.cookie('pdid', js['result']);
             alert('등록되었습니다.');
 			document.getElementById('form').submit();
           }
 };
-
    
       xhr.send(JSON.stringify({ 
 		"name": document.getElementById("pdarea").value,
