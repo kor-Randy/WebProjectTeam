@@ -70,7 +70,8 @@
 									<form id="order"  v-on:submit="onSubmitForm" method="">
 										<h2 style="margin: 8.2px 0px 0px 30px;">{{ description }}</h2>
 										<h3 style="margin: 8.2px 0px 0px 30px;">상품 가격 : <span style="font-size: 1.3em">{{ price }}</span>원</h3>
-										<input type="text" v-model="count" id="countarea" placeholder="수량" required>
+										<h4 style="margin: 8.2px 0px 0px 30px;">남은 개수 : </h4>
+										<input type="text" v-model="count" id="countarea" placeholder="주문 수량" required>
 
 										<!-- -------------주문 시 주소 입력하는 부분 ----------------->
 										<input type="text" id="postcode" placeholder="우편번호" v-on:click="execDaumPostcode" required>
