@@ -12,30 +12,77 @@
 	</head>
 	<body class="is-preload">
 	<script>
-		function getProductsInfo(){/* 모든 상품의 이름,설명 을 배열로 반환 */
-/* 예시 */   var prdArray = new Array("kau", "구글", "김치");
-            var descriptionArray = new Array("한국 항공대", "검색사이트","김치 설명");
-            var dataset = new Array(prdArray, descriptionArray);
-            return dataset;
-        }
+       window.onload=function()
+        {
+            /* 모든 상품의 이름,설명 을 배열로 반환 */
+            
+            var arr1 = Array();
+            var arr2 = Array();
+            var arr3 = Array();
+            const xhr = new XMLHttpRequest();
+          xhr.open('GET', 'http://localhost:3000/api/things/',true);
+          xhr.setRequestHeader('Content-type', 'application/json');
+alert("33");
+xhr.onreadystatechange = function()
+{
+    alert("44");
+    if (xhr.readyState !== XMLHttpRequest.DONE) return;
+
+if(xhr.status === 201||xhr.status===200) 
+{ // 201: Created
+   alert("hello");
+    var data = xhr.responseText;
+var jsa = JSON.parse(data);
+
+    for(i=0;i<jsa.length-1;i++)
+    {
+        alert(jsa[i]._id);
+        arr1()=jsa[i]._id;
+        arr2()=jsa[i].name;
+        arr3()=jsa[i].description;
+    }
+                    
+} 
+else 
+{
+    alert('물품을 불러오는 데에 실패했습니다.');
+}
+
+
+xhr.send();
+
+/* 예시 */    var dataset = new Array(arr1,arr2,arr3);
+return dataset;
+}
+        };
+
+         
+
+        
+
+            
+
+        
 		loggined = false;
         var id = $.cookie('AUTH');
         if ((id!='null') && (id!=undefined) && (id!=null)) {
                 loggined = true;
         }
+        /*
         var dataset = new Array();
         
         dataset = getProductsInfo();
         var imageAr = 0;
         var descriptionAr = 1;
         var dataArray = new Array();
-        for (var i = 0; i < dataset[imageAr].length; i++){
+        var i=0;
+        for (; i < dataset[imageAr].length; i++){
                 dataArray.push({
                 name: dataset[imageAr][i],
                 imagePath: 'images/' + dataset[imageAr][i] + '_0' + '.jpg',
                 description: dataset[descriptionAr][i]
             });
-        }
+        }*/
 	</script>
 		<!-- Wrapper -->
 			<div id="wrapper">
@@ -78,7 +125,7 @@
                                 <input type="submit" v-on:click="search" class="checkbutton"  id="search" value="검색">
                             </div>
                             <hr style="width: 100%;">
-                            <products />
+                            <!--<products />-->
 						</div>
 					</div>
 			</div>
@@ -91,7 +138,7 @@
 		<script src="assets/js/util.js"></script>
 		<script src="assets/js/main.js"></script>
         <script>
-            Vue.component('products', {
+            /*Vue.component('products', {
                 template: `
                 <div>
                     <section class="tiles">
@@ -113,9 +160,11 @@
                 </div>`,
                 data() {
                     return {
+                        
                         images: dataArray,
                         nextcount: dataset[imageAr].length
-                    };
+                         
+                   };
                     
                 },
                 methods: {
@@ -135,8 +184,13 @@
                         location.href = "generic.html";
                     }
                 }
-            });
+            });*/
             function setPdnameCookie(n){
+
+                
+
+
+
                 $.cookie('pdname', n, { expires: 1, path: '/' });// 세션 쿠키 생성 - 브라우저를 닫으면 없으집니다. 
                 $.cookie('pdname', n);
             }
@@ -164,7 +218,55 @@
             function setPdnameCookie(n){
                 $.cookie('pdname', n, { expires: 1, path: '/' });// 세션 쿠키 생성 - 브라우저를 닫으면 없으집니다. 
                 $.cookie('pdname', n);
+
+alert("z");
+              
+            var arr1 = Array();
+            var arr2 = Array();
+            var arr3 = Array();
+            const xhr = new XMLHttpRequest();
+          xhr.open('POST', 'http://localhost:3000/api/things/'+document.getElementById("searcharea").value);
+          xhr.setRequestHeader('Content-type', 'application/json');
+alert("33");
+xhr.onreadystatechange = function()
+{
+    alert("44");
+    if (xhr.readyState !== XMLHttpRequest.DONE) return;
+
+if(xhr.status === 201||xhr.status===200) 
+{ // 201: Created
+   alert("hello");
+    var data = xhr.responseText;
+var jsa = JSON.parse(data);
+
+    for(i=0;i<jsa.length-1;i++)
+    {
+        alert(jsa[i]._id);
+        arr1()=jsa[i]._id;
+        arr2()=jsa[i].name;
+        arr3()=jsa[i].description;
+    }
+                    
+} 
+else 
+{
+    alert('물품을 불러오는 데에 실패했습니다.');
+}
+
+
+
+
+
+};
+xhr.send(JSON.stringify({ 
+            "name":document.getElementById("searcharea").value
+          }));
+
             }
+         
+
+
+            
         </script>
 	</body>
 </html>
