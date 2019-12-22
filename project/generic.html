@@ -20,7 +20,7 @@
 			}
 			else{
 			alert('로그인 후 사용가능 합니다.');
-			location.href = "login.html";
+			//location.href = "login.html";
 			}
 			var getData = new Array();
 			getData = getProduct();
@@ -154,7 +154,8 @@
 					price: getPrice,
 					description: getDescription,
 					productName: pdname,
-					mainImg: 'images/' + pdn + '_0' + '.jpg'
+					mainImg: 'images/' + pdn + '_0' + '.jpg',
+					id: $.cookie('pdid')
                 },
                 methods: {
                     onSubmitForm(e) {
