@@ -14,9 +14,7 @@
 
 	</head>
 	<body class="is-preload">
-		<script>
-		$.cookie('AUTH', null);
-		</script>
+		<script>$.cookie('AUTH', null);</script>
 		<!-- Wrapper -->
 			<div id="wrapper">
 
@@ -98,15 +96,18 @@
 		    });
 			function requestLogin(data) 
 			{
+
 				console.log("account");
       const xhr = new XMLHttpRequest();
       xhr.open('POST', 'http://localhost:3000/api/accounts/login/'+data.id);
       xhr.setRequestHeader('Content-type', 'application/json');
+
 	  
 	  xhr.onreadystatechange = function (e)
 	  {
         if (xhr.readyState !== XMLHttpRequest.DONE) 
           return;
+
 		  if(xhr.status===404)
 		  {
 			  alert("ID를 확인해주세요.")
@@ -114,16 +115,16 @@
         else if(xhr.status === 201||xhr.status===200) 
 		{ // 201: Created
 			
-          var data = xhr.responseText;
-		  var jsa = JSON.parse(data);
+          var data1 = xhr.responseText;
+		  var jsa = JSON.parse(data1);
 		 console.log(CryptoJS.SHA256(document.getElementById("pwdarea").value).toString());
 		 console.log(jsa.pass);
 		 if(CryptoJS.SHA256(document.getElementById("pwdarea").value).toString()==jsa.pass)
 		 {
 			alert('로그인 성공');
-								$.cookie('AUTH', this.id, { expires: 7, path: '/' });// 세션 쿠키 생성 - 브라우저를 닫으면 없으집니다. 
-								$.cookie('AUTH', this.id);
-								location.href = "index.html";
+			$.cookie('AUTH', data.id, { expires: 7, path: '/' });// 세션 쿠키 생성 - 브라우저를 닫으면 없으집니다. 
+			$.cookie('AUTH', data.id);
+			location.href = "index.html";
 		 }
 		 else
 		 {
@@ -134,15 +135,20 @@
         else 
         {
           alert("Error!"+xhr.status);
+
          
         }
 	  };
+
       xhr.send(JSON.stringify({ 
             "id":data.id
           }));
+
+
 					//data.id /*아이디 전송*/
 					//data.password /*비밀번호 전송 */
 			    /* LOGIN 성공-> true반환*/
+
 		    }
 		</script>
 
