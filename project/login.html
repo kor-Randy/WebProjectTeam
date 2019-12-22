@@ -14,7 +14,9 @@
 
 	</head>
 	<body class="is-preload">
-		<script>$.cookie('AUTH', null);</script>
+		<script>
+		$.cookie('AUTH', null);
+		</script>
 		<!-- Wrapper -->
 			<div id="wrapper">
 
@@ -96,18 +98,15 @@
 		    });
 			function requestLogin(data) 
 			{
-
 				console.log("account");
       const xhr = new XMLHttpRequest();
       xhr.open('POST', 'http://localhost:3000/api/accounts/login/'+data.id);
       xhr.setRequestHeader('Content-type', 'application/json');
-
 	  
 	  xhr.onreadystatechange = function (e)
 	  {
         if (xhr.readyState !== XMLHttpRequest.DONE) 
           return;
-
 		  if(xhr.status===404)
 		  {
 			  alert("ID를 확인해주세요.")
@@ -135,20 +134,15 @@
         else 
         {
           alert("Error!"+xhr.status);
-
          
         }
 	  };
-
       xhr.send(JSON.stringify({ 
             "id":data.id
           }));
-
-
 					//data.id /*아이디 전송*/
 					//data.password /*비밀번호 전송 */
 			    /* LOGIN 성공-> true반환*/
-
 		    }
 		</script>
 

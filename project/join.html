@@ -34,7 +34,7 @@
                         <li><a href="index.html">Home</a></li>
                         <li><a href="login.html">로그인</a></li>
                         <li><a href="join.html">회원가입</a></li>
-                        <li><a href="register.html">등록하기</a></li>
+                        <li style="display:none"><a href="register.html">등록하기</a></li>
                         <li><a href="question.html">문의하기</a></li>
                     </ul>
                 </nav>
@@ -89,14 +89,12 @@
                 watch: {
                     id(val) {
                         const reg = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
-
                         if(reg.exec(val)!==null){
                         return this.id = this.id.slice(0,-1);
                         }
                     },
                     name(val) {
                         const reg = /[0-9|a-z|A-Z]/;
-
                         if(reg.exec(val)!==null){
                         return this.name = this.name.slice(0,-1);
                         }
@@ -134,23 +132,18 @@
                     },
                     checkForOverlapping : function (event) {
                         if (event) {
-
                             OverlappCheck(this.id);
                         }
                     }
                 }
             });
             function requestJoin(data) {    /*  회원가입 요청  */
-
-
                 const xhr = new XMLHttpRequest();
           xhr.open('POST', 'http://localhost:3000/api/accounts/');
           xhr.setRequestHeader('Content-type', 'application/json');
-
           xhr.onreadystatechange = function (e) 
           {
             if (xhr.readyState !== XMLHttpRequest.DONE) return;
-
             if(xhr.status === 201||xhr.status===200) 
             { // 201: Created
                 alert('회원가입 성공. 로그인 해 주세요.');
@@ -160,39 +153,28 @@
             {
                 alert('중복된 아이디거나 다른 이유로 요청이 실패했습니다.');
             }
-
-
-
-
           };
-
           xhr.send(JSON.stringify({ 
             "id":data.id
           ,"pass":CryptoJS.SHA256(data.password).toString()
           ,"name":data.name
           ,"phone":data.phoneNum
           ,"email":data.email}));
-
             
                
             
             
             }
-
-
-
         function OverlappCheck(id)
         {
             console.log("account");
       const xhr = new XMLHttpRequest();
       xhr.open('POST', 'http://localhost:3000/api/accounts/'+id);
       xhr.setRequestHeader('Content-type', 'application/json');
-
 xhr.onreadystatechange = function()
 {
     if (xhr.readyState !== XMLHttpRequest.DONE) 
           return;
-
           if(xhr.status===404)
           {
             alert('사용가능한 아이디 입니다.');
@@ -204,12 +186,10 @@ xhr.onreadystatechange = function()
               return false;
           }
 };
-
    
       xhr.send(JSON.stringify({ 
             "id":id
           }));
-
 	     /* true : 중복없음 false : 중복된 아이디 */
             
     }

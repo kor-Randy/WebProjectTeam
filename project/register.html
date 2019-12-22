@@ -14,11 +14,11 @@
 		<script>
 			loggined = false;
 			var id = $.cookie('AUTH');
-			if ((id!='null') && (id!=undefined) && (id!=null)) {
+			if (id == 'admin') {
 				loggined = true;
 			}
 			else{
-			alert('로그인 후 사용가능 합니다.');
+			alert('관리자 로그인 후 사용가능 합니다.');
 			location.href = "login.html";
 			}
 		</script>
@@ -46,7 +46,7 @@
 							<li><a href="index.html">Home</a></li>
 							<li><a href="login.html"><script>if(loggined) document.write ( '로그아웃' ); else document.write('로그인'); </script></a></li>
                             <li><a href="join.html">회원가입</a></li>
-                            <li><a href="register.html">등록하기</a></li>
+                            <li id="register"><a href="register.html">등록하기</a></li>
 							<li><a href="question.html">문의하기</a></li>
                             <li><script>if(loggined) document.write (id);</script></li>
 						</ul>
@@ -107,6 +107,9 @@
 						}
                 }
             });
+			if(id != 'admin'){
+				document.getElementById('register').style.display="none";
+		    }
             function getID(){
                 return $.cookie('AUTH');
             }
