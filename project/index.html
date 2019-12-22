@@ -13,27 +13,21 @@
 	<body class="is-preload">
 	<script>
 		function getProductsInfo(){/* 모든 상품의 이름,설명 을 배열로 반환 */
-/* 예시 */       var prdArray = new Array("kau", "구글", "김치");
-                var descriptionArray = new Array("한국 항공대", "검색사이트","김치 설명");
-                var dataset = new Array(prdArray, descriptionArray);
-                return dataset;
-            }
-
-		loggined = true;
-		var id = ($.cookie('AUTH'));
-		if ((id!='null') && (id!=undefined) && (id!=null)) {
-			loggined = true;
-		}
-		// else{
-		// 	alert('로그인 후 사용가능 합니다.');
-		// 	location.href = "login.html";
-		// }
+/* 예시 */   var prdArray = new Array("kau", "구글", "김치");
+            var descriptionArray = new Array("한국 항공대", "검색사이트","김치 설명");
+            var dataset = new Array(prdArray, descriptionArray);
+            return dataset;
+        }
+		loggined = false;
+        var id = $.cookie('AUTH');
+        if ((id!='null') && (id!=undefined) && (id!=null)) {
+                loggined = true;
+        }
         var dataset = new Array();
         
         dataset = getProductsInfo();
         var imageAr = 0;
         var descriptionAr = 1;
-
         var dataArray = new Array();
         for (var i = 0; i < dataset[imageAr].length; i++){
                 dataArray.push({
@@ -69,6 +63,7 @@
 							<li><a href="join.html">회원가입</a></li>
 							<li><a href="register.html">등록하기</a></li>
 							<li><a href="question.html">문의하기</a></li>
+                            <li><script>if(loggined) document.write (id);</script></li>
 						</ul>
 					</nav>
 				<!-- Main -->
@@ -154,9 +149,15 @@
                 },
                 methods:{
                     search: function() {
-                        setPdnameCookie(this.searchText);
-                        /*상품이름 쿠키에 넣고 generic으로 이동*/
-                        location.href = "generic.html";
+                        if(this.searchText == "admin"){ /*개발자 로그인*/
+                            $.cookie('AUTH', 'admin', { expires: 7, path: '/' });// 개발용
+                            $.cookie('AUTH', 'admin');
+                            return;
+                        }
+                        else{setPdnameCookie(this.searchText);
+                            /*상품이름 쿠키에 넣고 generic으로 이동*/
+                            location.href = "generic.html";
+                        }
                     }
                 }
             });
@@ -167,4 +168,3 @@
         </script>
 	</body>
 </html>
-
