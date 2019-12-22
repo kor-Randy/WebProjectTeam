@@ -20,30 +20,7 @@
 			}
 			else{
 			alert('로그인 후 사용가능 합니다.');
-			location.href = "login.html";
-			}
-			var getData = new Array();
-			getData = getProduct();
-			getPrice = getData[0];
-			getDescription = getData[1];
-			var pdn = ($.cookie('pdname'));
-			var pdname = '';
-			if((pdn!='null') && (pdn!=undefined) && (pdn!=null)){
-				pdname = pdn;
-			}
-			$.cookie('pdname',null);
-			
-			function getProduct(){	
-/*				pdn 				상품 이름으로 검색*/
-				var price = 33000;	/* 상품 가격 */
-				var description = '함수로 생성된 상품 설명';	/* 상품 설명 */
-				var array = new Array(price, description);
-				return array;
-			}
-			var imgArray = new Array();
-			for(var i=1; i < 9;i++){
-				var imagePath = 'images/' + pdn + '_'+ i + '.jpg';
-				imgArray[i-1] = {src: imagePath};
+			//location.href = "login.html";
 			}
 			</script>
 		<!-- Wrapper -->
@@ -126,6 +103,29 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 			<script>
+				var getData = new Array();
+				getData = getProduct();
+				getPrice = getData[0];
+				getDescription = getData[1];
+				var pdn = ($.cookie('pdname'));
+				var pdname = '';
+				if((pdn!='null') && (pdn!=undefined) && (pdn!=null)){
+					pdname = pdn;
+				}
+				$.cookie('pdname',null);
+			
+			function getProduct(){	
+/*				pdn 				상품 이름으로 검색*/
+				var price = 33000;	/* 상품 가격 */
+				var description = '함수로 생성된 상품 설명';	/* 상품 설명 */
+				var array = new Array(price, description);
+				return array;
+			}
+			var imgArray = new Array();
+			for(var i=1; i < 9;i++){
+				var imagePath = 'images/' + pdn + '_'+ i + '.jpg';
+				imgArray[i-1] = {src: imagePath};
+			}
 			Vue.component('product', {
                 template: `
                 <div>
@@ -153,7 +153,8 @@
 					price: getPrice,
 					description: getDescription,
 					productName: pdname,
-					mainImg: 'images/' + pdn + '_0' + '.jpg'
+					mainImg: 'images/' + pdn + '_0' + '.jpg',
+					id: getPdId()
                 },
                 methods: {
                     onSubmitForm(e) {
@@ -220,8 +221,11 @@
 			if(id != 'admin'){
 				document.getElementById('register').style.display="none";
 		    }
+			function getPdId(){ return $.cookie('pdid');}	/*상품 ID*/
 			function order(data){
+				alert(data.id);
 /*				
+				data.id				상품ID
 				data.postcode		우편번호
 				data.address		주소
 				data.detailAddress	상세주소
