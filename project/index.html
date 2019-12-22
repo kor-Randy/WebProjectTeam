@@ -1,13 +1,12 @@
-
 <!DOCTYPE HTML>
 <html>
 	<head>
 		<title>미하이 스토어 공동구매 - index</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-        	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 		<script src="assets/js/jquery.min.js"></script>
-        	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
@@ -68,7 +67,7 @@
 
 		<!-- Scripts -->
 		<script src="assets/js/jquery.min.js"></script>
-        	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 		<script src="assets/js/browser.min.js"></script>
 		<script src="assets/js/breakpoints.min.js"></script>
 		<script src="assets/js/util.js"></script>
@@ -84,12 +83,12 @@
             
           xhr.open('GET', 'http://localhost:3000/api/things/allsearch',true);
           xhr.setRequestHeader('Content-type', 'application/json');
-
 xhr.onreadystatechange = function()
 {
             var arr1 = Array();
             var arr2 = Array();
             var arr3 = Array();
+            var arr4 = Array();
     
     if (xhr.readyState !== XMLHttpRequest.DONE) return;
 if(xhr.status === 201||xhr.status===200) 
@@ -97,26 +96,28 @@ if(xhr.status === 201||xhr.status===200)
     var data = xhr.responseText;
 var jsa = JSON.parse(data);
 console.log(jsa);
-    for(var i in jsa)
-   {
-    console.log(jsa[i]._id+jsa[i].name+jsa[i].des);
+    for(var i in jsa)
+   {
+    console.log(jsa[i]._id+jsa[i].name+jsa[i].des);
 arr1.push(jsa[i]._id);
 arr2.push(jsa[i].name);
 arr3.push(jsa[i].des);
-   }
-
-    var dataSet = new Array(arr1,arr2,arr3);
+arr4.push(jsa[i].price)
+   }
+    var dataSet = new Array(arr1,arr2,arr3,arr4);
             var idAr = 0;
             var nameAr = 1;
             var descriptionAr = 2;
+            var priceAr = 3;
             var dataArray = new Array();
             var i=0;
             for (; i < dataSet[idAr].length; i++){
                     dataArray.push({
                     id: dataSet[idAr][i],
                     name: dataSet[nameAr][i],
-                    imagePath: 'images/' + dataSet[nameAr][i] + '_0' + '.jpg',
-                    description: dataSet[descriptionAr][i]
+                    imagePath: 'images/' + dataSet[idAr][i] + '_0' + '.jpg',
+                    description: dataSet[descriptionAr][i],
+                    price: dataSet[priceAr][i]
                 });
             }
                     
@@ -137,7 +138,7 @@ xhr.send();
                             <span class="image">
                                 <img :src=image.imagePath alt=""/>
                             </span>
-                            <a v-on:click="generic(image.name,image.id)">
+                            <a v-on:click="generic(image.name,image.id,image.des,image.price)">
                                 <h2>{{ image.name }}</h2>
                                 <div class="content">
                                     <p>{{ image.description }}</p>
@@ -156,12 +157,28 @@ xhr.send();
                     
                 },
                 methods: {
-                    generic: function(n,id){
-                        setPdnameCookie(n,id);
+                    generic: function(n,id,des,price){
+                        setPdnameCookie(n,id,des,price);
                         location.href = "generic.html";
                     }
                 }
             });
+            function setPdnameCookie(name,id,description,price ){
+                $.cookie('pdid', id, { expires: 7, path: '/' });// 개발용
+                $.cookie('pdid', id);
+
+                $.cookie('pdname', name, { expires: 7, path: '/' });// 개발용
+                $.cookie('pdname', name);
+
+                $.cookie('pddescription', description, { expires: 7, path: '/' });// 개발용
+                $.cookie('pddescription', description);
+
+                $.cookie('pdprice', price, { expires: 7, path: '/' });// 개발용
+                $.cookie('pdprice', price);
+
+            }
+            </script>
+            <script>
             const app = new Vue({
                 el: '#root',
                 data: {
@@ -185,53 +202,41 @@ xhr.send();
 			if(id != 'admin'){
 				document.getElementById('register').style.display="none";
 		    }
-            function setPdnameCookie(n){
-                //$.cookie('pdname', n, { expires: 1, path: '/' });// 세션 쿠키 생성 - 브라우저를 닫으면 없으집니다. 
-                //$.cookie('pdname', n);
-
-              
-            var arr1 = Array();
-            var arr2 = Array();
-            var arr3 = Array();
-            const xhr = new XMLHttpRequest();
-          xhr.open('POST', 'http://localhost:3000/api/things/'+document.getElementById("searcharea").value);
-          xhr.setRequestHeader('Content-type', 'application/json');
-
-xhr.onreadystatechange = function()
+            function setPdnameCookie(n){
+                //$.cookie('pdname', n, { expires: 1, path: '/' });// 세션 쿠키 생성 - 브라우저를 닫으면 없으집니다. 
+                //$.cookie('pdname', n);
+              
+            var arr1 = Array();
+            var arr2 = Array();
+            var arr3 = Array();
+            const xhr = new XMLHttpRequest();
+          xhr.open('POST', 'http://localhost:3000/api/things/'+document.getElementById("searcharea").value);
+          xhr.setRequestHeader('Content-type', 'application/json');
+xhr.onreadystatechange = function()
 {
-    if (xhr.readyState !== XMLHttpRequest.DONE) return;
-
-if(xhr.status === 201||xhr.status===200) 
-{ // 201: Created
-
-    var data = xhr.responseText;
-var jsa = JSON.parse(data);
-
+    if (xhr.readyState !== XMLHttpRequest.DONE) return;
+if(xhr.status === 201||xhr.status===200) 
+{ // 201: Created
+    var data = xhr.responseText;
+var jsa = JSON.parse(data);
 console.log(data);
-
 console.log(jsa);
-
-   for(var i in jsa)
-   {
-    console.log(jsa[i].name);
-   }
-                    
-} 
-else 
+   for(var i in jsa)
+   {
+    console.log(jsa[i].name);
+   }
+                    
+} 
+else 
 {
-    alert('물품을 불러오는 데에 실패했습니다. ');
+    alert('물품을 불러오는 데에 실패했습니다. ');
 }
-
-
-
-
 };
-xhr.send(JSON.stringify({ 
-            "name":document.getElementById("searcharea").value
-          }));
-
-            }
-         
+xhr.send(JSON.stringify({ 
+            "name":document.getElementById("searcharea").value
+          }));
+            }
+         
         
         function getID(Name)   {
             /*Name으로 상품 ID받아오기*/
