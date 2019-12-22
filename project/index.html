@@ -1,3 +1,4 @@
+
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -73,46 +74,38 @@
 		<script src="assets/js/util.js"></script>
 		<script src="assets/js/main.js"></script>
         <script>
-		var dataSet = new Array();
+        var dataSet = new Array();
+        getProductsInfo();
             function getProductsInfo()
             {
             /* 모든 상품의 이름,설명 을 배열로 반환 */
             
+            const xhr = new XMLHttpRequest();
+            
+          xhr.open('GET', 'http://localhost:3000/api/things/allsearch',true);
+          xhr.setRequestHeader('Content-type', 'application/json');
+
+xhr.onreadystatechange = function()
+{
             var arr1 = Array();
             var arr2 = Array();
             var arr3 = Array();
-            const xhr = new XMLHttpRequest();
-          xhr.open('GET', 'http://localhost:3000/api/things/',true);
-          xhr.setRequestHeader('Content-type', 'application/json');
-alert("33");
-xhr.onreadystatechange = function()
-{
-    alert("44");
+    
     if (xhr.readyState !== XMLHttpRequest.DONE) return;
 if(xhr.status === 201||xhr.status===200) 
 { // 201: Created
-   alert("hello");
     var data = xhr.responseText;
 var jsa = JSON.parse(data);
-    for(i=0;i<jsa.length-1;i++)
-    {
-        alert(jsa[i]._id);
-        arr1()=jsa[i]._id;
-        arr2()=jsa[i].name;
-        arr3()=jsa[i].description;
-    }
-                    
-} 
-else 
-{
-    alert('물품을 불러오는 데에 실패했습니다.');
-}
-xhr.send();
-/* 예시 */    var dataset = new Array(arr1,arr2,arr3);
-return dataset;
-}
-        }
-            dataSet = getProductsInfo();
+console.log(jsa);
+    for(var i in jsa)
+   {
+    console.log(jsa[i]._id+jsa[i].name+jsa[i].des);
+arr1.push(jsa[i]._id);
+arr2.push(jsa[i].name);
+arr3.push(jsa[i].des);
+   }
+
+    var dataSet = new Array(arr1,arr2,arr3);
             var idAr = 0;
             var nameAr = 1;
             var descriptionAr = 2;
@@ -126,6 +119,16 @@ return dataset;
                     description: dataSet[descriptionAr][i]
                 });
             }
+                    
+} 
+else 
+{
+    alert('물품을 불러오는 데에 실패했습니다.');
+}
+}
+xhr.send();
+        }
+            
             Vue.component('products', {
                 template: `
                 <div>
@@ -182,48 +185,53 @@ return dataset;
 			if(id != 'admin'){
 				document.getElementById('register').style.display="none";
 		    }
-            function setPdnameCookie(n,id){
-                $.cookie('pdname', n, { expires: 1, path: '/' });// 세션 쿠키 생성 - 브라우저를 닫으면 없으집니다. 
-                $.cookie('pdname', n);
-                $.cookie('pdid', id, { expires: 1, path: '/' });
-                $.cookie('pdid', id);
-                
-alert("z");
-              
-            var arr1 = Array();
-            var arr2 = Array();
-            var arr3 = Array();
-            const xhr = new XMLHttpRequest();
-          xhr.open('POST', 'http://localhost:3000/api/things/'+document.getElementById("searcharea").value);
-          xhr.setRequestHeader('Content-type', 'application/json');
-alert("33");
-xhr.onreadystatechange = function()
+            function setPdnameCookie(n){
+                //$.cookie('pdname', n, { expires: 1, path: '/' });// 세션 쿠키 생성 - 브라우저를 닫으면 없으집니다. 
+                //$.cookie('pdname', n);
+
+              
+            var arr1 = Array();
+            var arr2 = Array();
+            var arr3 = Array();
+            const xhr = new XMLHttpRequest();
+          xhr.open('POST', 'http://localhost:3000/api/things/'+document.getElementById("searcharea").value);
+          xhr.setRequestHeader('Content-type', 'application/json');
+
+xhr.onreadystatechange = function()
 {
-    alert("44");
-    if (xhr.readyState !== XMLHttpRequest.DONE) return;
-if(xhr.status === 201||xhr.status===200) 
-{ // 201: Created
-   alert("hello");
-    var data = xhr.responseText;
-var jsa = JSON.parse(data);
-    for(i=0;i<jsa.length-1;i++)
-    {
-        alert(jsa[i]._id);
-        arr1()=jsa[i]._id;
-        arr2()=jsa[i].name;
-        arr3()=jsa[i].description;
-    }
-                    
-} 
-else 
+    if (xhr.readyState !== XMLHttpRequest.DONE) return;
+
+if(xhr.status === 201||xhr.status===200) 
+{ // 201: Created
+
+    var data = xhr.responseText;
+var jsa = JSON.parse(data);
+
+console.log(data);
+
+console.log(jsa);
+
+   for(var i in jsa)
+   {
+    console.log(jsa[i].name);
+   }
+                    
+} 
+else 
 {
-    alert('물품을 불러오는 데에 실패했습니다.');
+    alert('물품을 불러오는 데에 실패했습니다.');
 }
+
+
+
+
 };
-xhr.send(JSON.stringify({ 
-            "name":document.getElementById("searcharea").value
-          }));
-            }
+xhr.send(JSON.stringify({ 
+            "name":document.getElementById("searcharea").value
+          }));
+
+            }
+         
         
         function getID(Name)   {
             /*Name으로 상품 ID받아오기*/
@@ -232,4 +240,3 @@ xhr.send(JSON.stringify({
         } 
         </script>
 	</body>
-</html>
