@@ -22,30 +22,7 @@
 			alert('로그인 후 사용가능 합니다.');
 			//location.href = "login.html";
 			}
-			var getData = new Array();
-			getData = getProduct();
-			getPrice = getData[0];
-			getDescription = getData[1];
-			var pdn = ($.cookie('pdname'));
-			var pdname = '';
-			if((pdn!='null') && (pdn!=undefined) && (pdn!=null)){
-				pdname = pdn;
-			}
-			$.cookie('pdname',null);
-			
-			function getProduct(){	
-/*				pdn 				상품 이름으로 검색*/
-				var price = 33000;	/* 상품 가격 */
-				var description = '함수로 생성된 상품 설명';	/* 상품 설명 */
-				var array = new Array(price, description);
-				return array;
-			}
-			var imgArray = new Array();
-			for(var i=1; i < 9;i++){
-				var imagePath = 'images/' + pdn + '_'+ i + '.jpg';
-				imgArray[i-1] = {src: imagePath};
-			}
-			</script>
+		</script>
 			
 		<!-- Wrapper -->
 			<div id="wrapper">
@@ -127,6 +104,24 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 			<script>
+			var pdid = ($.cookie('pdid'));
+			getProduct();
+			var getPrice;
+			getDescription;
+			var pdname = '';
+
+			function getProduct(){	
+/*				pdid 				상품 아이디로 검색*/
+				getPrice = 33000;	/* 상품 가격 */
+				getDescription = '함수로 생성된 상품 설명';	/* 상품 설명 */
+				pdname = '상품의 이름';
+			}
+
+			var imgArray = new Array();
+			for(var i=1; i < 9;i++){
+				var imagePath = 'images/' + pdid + '_'+ i + '.jpg';
+				imgArray[i-1] = {src: imagePath};
+			}
 			Vue.component('product', {
                 template: `
                 <div>
@@ -154,8 +149,8 @@
 					price: getPrice,
 					description: getDescription,
 					productName: pdname,
-					mainImg: 'images/' + pdn + '_0' + '.jpg',
-					id: $.cookie('pdid')
+					mainImg: 'images/' + pdid + '_0' + '.jpg',
+					id: pdid
                 },
                 methods: {
                     onSubmitForm(e) {
