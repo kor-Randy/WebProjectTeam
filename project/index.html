@@ -60,7 +60,7 @@
                                 <input type="submit" v-on:click="search" class="checkbutton"  id="search" value="검색">
                             </div>
                             <hr style="width: 100%;">
-                            <!--<products />-->
+                            <products />
 						</div>
 					</div>
 			</div>
@@ -73,9 +73,10 @@
 		<script src="assets/js/util.js"></script>
 		<script src="assets/js/main.js"></script>
         <script>
+        var dataArray = new Array();
         var dataSet = new Array();
         getProductsInfo();
-            function getProductsInfo()
+            async function getProductsInfo()
             {
             /* 모든 상품의 이름,설명 을 배열로 반환 */
             
@@ -109,7 +110,7 @@ arr4.push(jsa[i].price)
             var nameAr = 1;
             var descriptionAr = 2;
             var priceAr = 3;
-            var dataArray = new Array();
+           
             var i=0;
             for (; i < dataSet[idAr].length; i++){
                     dataArray.push({
@@ -125,6 +126,13 @@ arr4.push(jsa[i].price)
 else 
 {
     alert('물품을 불러오는 데에 실패했습니다.');
+    dataArray.push({
+        id: '404',
+        name: '실패',
+        imagePath: 'images/' + 'kau' + '_0' + '.jpg',
+        description: '실패',
+        price: 10010
+    });
 }
 }
 xhr.send();
@@ -138,7 +146,7 @@ xhr.send();
                             <span class="image">
                                 <img :src=image.imagePath alt=""/>
                             </span>
-                            <a v-on:click="generic(image.name,image.id,image.des,image.price)">
+                            <a v-on:click="generic(image.name, image.id, image.description, image.price)">
                                 <h2>{{ image.name }}</h2>
                                 <div class="content">
                                     <p>{{ image.description }}</p>
@@ -151,30 +159,27 @@ xhr.send();
                     return {
                         
                         images: dataArray,
-                        nextcount: 0
-                         
-                   };
-                    
+                    }
                 },
                 methods: {
-                    generic: function(n,id,des,price){
-                        setPdnameCookie(n,id,des,price);
-                        location.href = "generic.html";
-                    }
-                }
+                            generic: function(n,pid,des,price){
+                                $.cookie('pdid', pid, { expires: 7, path: '/' });// 개발용
+                                $.cookie('pdid', pid);
+
+                                $.cookie('pdname', n, { expires: 7, path: '/' });// 개발용
+                                $.cookie('pdname', n);
+
+                                $.cookie('pddescription', des, { expires: 7, path: '/' });// 개발용
+                                $.cookie('pddescription', des);
+
+                                $.cookie('pdprice', price, { expires: 7, path: '/' });// 개발용
+                                $.cookie('pdprice', price);
+                                location.href = "generic.html";
+                            }
+                        }
             });
             function setPdnameCookie(name,id,description,price ){
-                $.cookie('pdid', id, { expires: 7, path: '/' });// 개발용
-                $.cookie('pdid', id);
-
-                $.cookie('pdname', name, { expires: 7, path: '/' });// 개발용
-                $.cookie('pdname', name);
-
-                $.cookie('pddescription', description, { expires: 7, path: '/' });// 개발용
-                $.cookie('pddescription', description);
-
-                $.cookie('pdprice', price, { expires: 7, path: '/' });// 개발용
-                $.cookie('pdprice', price);
+                
 
             }
             </script>
@@ -245,3 +250,4 @@ xhr.send(JSON.stringify({
         } 
         </script>
 	</body>
+</html>
