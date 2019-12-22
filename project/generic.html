@@ -130,7 +130,6 @@
 			var getPrice = $.cookie('pdprice');
 			var getDescription = $.cookie('pddescription');
 			var pdname = $.cookie('pdname');
-
             const app = new Vue({   //login regex & save data
                 el: '#root',
                 data: {
@@ -208,75 +207,58 @@
 				}
             });
 			function order(data){
-
 				const xhr = new XMLHttpRequest();
-          xhr.open('POST', 'http://localhost:3000/api/things/'+data._id);
+          xhr.open('POST', 'http://localhost:3000/api/things/searchid/'+data._id);
           xhr.setRequestHeader('Content-type', 'application/json');
-
           xhr.onreadystatechange = function (e) 
           {
             if (xhr.readyState !== XMLHttpRequest.DONE) return;
-
             if(xhr.status === 201||xhr.status===200) 
             { // 201: Created
 				console.log('id로 불러오기 성공');
 				
 				var jsa = JSON.parse(xhr.responseText);
-
-				if(jsa[result]==1)
+				if(jsa['result']==1)
 				{
 					
 					console.log('주문 가능한 갯수 있음');
-
 					/********************************************/
-
 					const xhr1 = new XMLHttpRequest();
-          xhr1.open('POST', 'http://localhost:3000/api/things/update/'+data._id);
+          xhr1.open('PUT', 'http://localhost:3000/api/things/update/'+data._id);
           xhr1.setRequestHeader('Content-type', 'application/json');
-
           xhr1.onreadystatechange = function (e) 
           {
             if (xhr1.readyState !== XMLHttpRequest.DONE) return;
-
             if(xhr1.status === 201||xhr1.status===200) 
             { // 201: Created
 				console.log('id로 불러오기 성공');
 				
 				var jsa = JSON.parse(xhr1.responseText);
-
-				if(jsa[result]==11)
+				if(jsa['result']==11)
 				{
 					
 					console.log('갯수 Update 성공');
-
 					/********************************************/
-
 					const xhr2 = new XMLHttpRequest();
           xhr2.open('POST', 'http://localhost:3000/api/orders/');
           xhr2.setRequestHeader('Content-type', 'application/json');
-
           xhr2.onreadystatechange = function (e) 
           {
             if (xhr2.readyState !== XMLHttpRequest.DONE) return;
-
             if(xhr2.status === 201||xhr2.status===200) 
             { // 201: Created
 				
 				
 				var jsa = JSON.parse(xhr2.responseText);
-
-				if(jsa[result]==1)
+				if(jsa['result']==1)
 				{
 					
 					console.log('주문 성공');
-
 					
-
 				}
 				else
 				{
 					console.log('주문 실패');
-
 				}
                                 
             } 
@@ -284,12 +266,8 @@
             {
                 console.log('id로 불러오기 실패');
             }
-
-
 			
-
           };
-
           xhr.send(JSON.stringify({ 
 			"things_id":data._id,
 			"postcode":document.getElementById("postcode").value,
@@ -301,7 +279,6 @@
 		  
 /***************************************************/
 					
-
 				}
 				else
 				{
@@ -313,22 +290,13 @@
             {
                 console.log('id로 불러오기 실패');
             }
-
-
-
-
           };
-
           xhr.send(JSON.stringify({ 
 			"_id":data._id,
 			"count":document.getElementById("countarea").value
 		  }));
 		  
-
-
-
 		  /********************************************/
-
 				}
 				else
 				{
@@ -340,25 +308,16 @@
             {
                 console.log('id로 불러오기 실패');
             }
-
-
-
-
           };
-
           xhr.send(JSON.stringify({ 
 			"_id":data._id,
 			"count":document.getElementById("countarea").value
           }));
-
             
                
             return true;
             
             }
-
-
-
 /*				
 				data.id				id
 				data.postcode		우편번호
