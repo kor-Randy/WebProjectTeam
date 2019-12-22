@@ -70,7 +70,7 @@
 									<form id="order"  v-on:submit="onSubmitForm" method="">
 										<h2 style="margin: 8.2px 0px 0px 30px;">{{ description }}</h2>
 										<h3 style="margin: 8.2px 0px 0px 30px;">상품 가격 : <span style="font-size: 1.3em">{{ price }}</span>원</h3>
-										<h4 style="margin: 8.2px 0px 0px 30px;">남은 개수 : </h4>
+										<h4 style="margin: 8.2px 0px 0px 30px;">남은 개수 : {{ maxCount }}</h4>
 										<input type="text" v-model="count" id="countarea" placeholder="주문 수량" required>
 
 										<!-- -------------주문 시 주소 입력하는 부분 ----------------->
@@ -131,6 +131,7 @@
 			var getPrice = $.cookie('pdprice');
 			var getDescription = $.cookie('pddescription');
 			var pdname = $.cookie('pdname');
+			var max = $/cookie('count');
             const app = new Vue({   //login regex & save data
                 el: '#root',
                 data: {
@@ -143,7 +144,8 @@
 					description: getDescription,
 					productName: pdname,
 					mainImg: 'images/' + pdname + '_0' + '.jpg',
-					id: pdid
+					id: pdid,
+					maxCount: max
                 },
                 methods: {
                     onSubmitForm(e) {
