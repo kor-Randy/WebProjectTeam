@@ -12,77 +12,11 @@
 	</head>
 	<body class="is-preload">
 	<script>
-       window.onload=function()
-        {
-            /* 모든 상품의 이름,설명 을 배열로 반환 */
-            
-            var arr1 = Array();
-            var arr2 = Array();
-            var arr3 = Array();
-            const xhr = new XMLHttpRequest();
-          xhr.open('GET', 'http://localhost:3000/api/things/',true);
-          xhr.setRequestHeader('Content-type', 'application/json');
-alert("33");
-xhr.onreadystatechange = function()
-{
-    alert("44");
-    if (xhr.readyState !== XMLHttpRequest.DONE) return;
-
-if(xhr.status === 201||xhr.status===200) 
-{ // 201: Created
-   alert("hello");
-    var data = xhr.responseText;
-var jsa = JSON.parse(data);
-
-    for(i=0;i<jsa.length-1;i++)
-    {
-        alert(jsa[i]._id);
-        arr1()=jsa[i]._id;
-        arr2()=jsa[i].name;
-        arr3()=jsa[i].description;
-    }
-                    
-} 
-else 
-{
-    alert('물품을 불러오는 데에 실패했습니다.');
-}
-
-
-xhr.send();
-
-/* 예시 */    var dataset = new Array(arr1,arr2,arr3);
-return dataset;
-}
-        };
-
-         
-
-        
-
-            
-
-        
 		loggined = false;
         var id = $.cookie('AUTH');
         if ((id!='null') && (id!=undefined) && (id!=null)) {
                 loggined = true;
         }
-        /*
-        var dataset = new Array();
-        
-        dataset = getProductsInfo();
-        var imageAr = 0;
-        var descriptionAr = 1;
-        var dataArray = new Array();
-        var i=0;
-        for (; i < dataset[imageAr].length; i++){
-                dataArray.push({
-                name: dataset[imageAr][i],
-                imagePath: 'images/' + dataset[imageAr][i] + '_0' + '.jpg',
-                description: dataset[descriptionAr][i]
-            });
-        }*/
 	</script>
 		<!-- Wrapper -->
 			<div id="wrapper">
@@ -108,7 +42,7 @@ return dataset;
 							<li><a href="index.html">Home</a></li>
 							<li><a href="login.html"><script>if(loggined) document.write ( '로그아웃' ); else document.write('로그인'); </script></a></li>
 							<li><a href="join.html">회원가입</a></li>
-							<li><a href="register.html">등록하기</a></li>
+							<li id="register"><a href="register.html">등록하기</a></li>
 							<li><a href="question.html">문의하기</a></li>
                             <li><script>if(loggined) document.write (id);</script></li>
 						</ul>
@@ -138,7 +72,60 @@ return dataset;
 		<script src="assets/js/util.js"></script>
 		<script src="assets/js/main.js"></script>
         <script>
-            /*Vue.component('products', {
+		var dataSet = new Array();
+            function getProductsInfo()
+            {
+            /* 모든 상품의 이름,설명 을 배열로 반환 */
+            
+            var arr1 = Array();
+            var arr2 = Array();
+            var arr3 = Array();
+            const xhr = new XMLHttpRequest();
+          xhr.open('GET', 'http://localhost:3000/api/things/',true);
+          xhr.setRequestHeader('Content-type', 'application/json');
+alert("33");
+xhr.onreadystatechange = function()
+{
+    alert("44");
+    if (xhr.readyState !== XMLHttpRequest.DONE) return;
+if(xhr.status === 201||xhr.status===200) 
+{ // 201: Created
+   alert("hello");
+    var data = xhr.responseText;
+var jsa = JSON.parse(data);
+    for(i=0;i<jsa.length-1;i++)
+    {
+        alert(jsa[i]._id);
+        arr1()=jsa[i]._id;
+        arr2()=jsa[i].name;
+        arr3()=jsa[i].description;
+    }
+                    
+} 
+else 
+{
+    alert('물품을 불러오는 데에 실패했습니다.');
+}
+xhr.send();
+/* 예시 */    var dataset = new Array(arr1,arr2,arr3);
+return dataset;
+}
+        }
+            dataSet = getProductsInfo();
+            var idAr = 0;
+            var nameAr = 1;
+            var descriptionAr = 2;
+            var dataArray = new Array();
+            var i=0;
+            for (; i < dataSet[idAr].length; i++){
+                    dataArray.push({
+                    id: dataSet[idAr][i],
+                    name: dataSet[nameAr][i],
+                    imagePath: 'images/' + dataSet[nameAr][i] + '_0' + '.jpg',
+                    description: dataSet[descriptionAr][i]
+                });
+            }
+            Vue.component('products', {
                 template: `
                 <div>
                     <section class="tiles">
@@ -154,37 +141,23 @@ return dataset;
                             </a>
                         </article>
                     </section>
-                    <div class="loadMoreButton">
-                        <button v-on:click="addImage" class="loadMoreButton">Load more</button>
-                    </div> 
                 </div>`,
                 data() {
                     return {
                         
                         images: dataArray,
-                        nextcount: dataset[imageAr].length
+                        nextcount: 0
                          
                    };
                     
                 },
                 methods: {
-                    addImage: function () {
-                        for (var i = 0; i < 30; i++){
-                            var n = i % 9;
-                            if (!n) { n = 9; }
-                            this.images.push({
-                                name: '상품 ' + this.nextcount++,
-                                imagePath: 'images/pic0'+ n +'.jpg',
-                                description: 'Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.'
-                            });
-                        }
-                    },
                     generic: function(n){
                         setPdnameCookie(n);
                         location.href = "generic.html";
                     }
                 }
-            });*/
+            });
             function setPdnameCookie(n){
 
                 
@@ -206,7 +179,7 @@ return dataset;
                         if(this.searchText == "admin"){ /*개발자 로그인*/
                             $.cookie('AUTH', 'admin', { expires: 7, path: '/' });// 개발용
                             $.cookie('AUTH', 'admin');
-                            return;
+                            location.href = "index.html";
                         }
                         else{setPdnameCookie(this.searchText);
                             /*상품이름 쿠키에 넣고 generic으로 이동*/
@@ -215,6 +188,9 @@ return dataset;
                     }
                 }
             });
+			if(id != 'admin'){
+				document.getElementById('register').style.display="none";
+		    }
             function setPdnameCookie(n){
                 $.cookie('pdname', n, { expires: 1, path: '/' });// 세션 쿠키 생성 - 브라우저를 닫으면 없으집니다. 
                 $.cookie('pdname', n);
