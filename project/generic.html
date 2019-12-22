@@ -105,10 +105,6 @@
 			<script src="assets/js/main.js"></script>
 			<script>
 			var pdid = $.cookie('pdid');
-			var getPrice = $.cookie('pdprice');
-			var getDescription = $.cookie('pddescription');
-			var pdname = $.cookie('pdname');
-
 			var imgArray = new Array();
 			for(var i=1; i < 9;i++){
 				var imagePath = 'images/' + pdid + '_'+ i + '.jpg';
@@ -130,6 +126,11 @@
             });
 			</script>
 			<script>
+			var pdid = $.cookie('pdid');
+			var getPrice = $.cookie('pdprice');
+			var getDescription = $.cookie('pddescription');
+			var pdname = $.cookie('pdname');
+
             const app = new Vue({   //login regex & save data
                 el: '#root',
                 data: {
