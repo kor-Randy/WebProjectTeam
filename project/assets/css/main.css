@@ -38,46 +38,44 @@ footer, header, hgroup, menu, nav, section {
 	text-align: center;
 }
 #searcharea{
-	width: 450px;
+	width: 45%;
     height: 60px;
 	margin: 30px 0px 0px 30px;
-	/* padding: 10px; */
-	/* border-bottom: 2px solid;
-	border-bottom-color : #585858; */
 	border: 2px solid #c2c2c2;
 	display: inline;
 }
 #idarea {
-    width: 450px;
-    height: 54.5px;
+    width: 33%;
+	height: 54.5px;
+	/* height: calc() */
 	margin: 30px 0px 0px 30px;
 	display: inline;
 }
 
 #pwdarea{
-    width: 450px;
+    width: 33%;
     height: 54.5px;
     margin: 8.2px 0px 0px 30px;
 }
 
 #pwdcarea{
-    width: 450px;
+    width: 33%;
     height: 54.5px;
     margin: 8.2px 0px 0px 30px;
 }
 
 #namearea{
-    width: 450px;
+    width: 33%;
     height: 54.5px;
     margin: 8.2px 0px 0px 30px;
 }
 #phonearea{
-    width: 450px;
+    width: 33%;
     height: 54.5px;
     margin: 8.2px 0px 0px 30px;
 }
 #emailarea{
-    width: 450px;
+    width: 33%;
     height: 54.5px;
     margin: 8.2px 0px 0px 30px;
 }
@@ -96,40 +94,40 @@ footer, header, hgroup, menu, nav, section {
 	border: 1px solid #c2c2c2;
 }
 #pdarea{
-    width: 450px;
+    width: 33%;
     height: 54.5px;
     margin: 8.2px 0px 0px 30px;
 }
 #pricearea{
-    width: 450px;
+    width: 33%;
     height: 54.5px;
     margin: 8.2px 0px 0px 30px;
 }
 #maxarea{
-    width: 450px;
+    width: 33%;
     height: 54.5px;
     margin: 8.2px 0px 0px 30px;
 }
 
 
 #postcode{
-	width: 200px;
+	width: 33%;
     height: 50px;
 	margin: 8.2px 0px 0px 30px;
 	display: inline;
 }
 #address{
-	width: 450px;
+	width: 33%;
     height: 50px;
     margin: 8.2px 0px 0px 30px;
 }
 #detailAddress{
-	width: 450px;
+	width: 33%;
     height: 50px;
     margin: 8.2px 0px 0px 30px;
 }
 #extraAddress{
-	width: 450px;
+	width: 33%;
     height: 50px;
     margin: 8.2px 0px 0px 30px;
 }
@@ -143,7 +141,7 @@ footer, header, hgroup, menu, nav, section {
 	border: 1px solid #c2c2c2;
 }
 #upload{
-    width: 450px;
+    width: 33%;
     height: 54.5px;
     margin: 8.2px 0px 0px 30px;
 }
@@ -161,11 +159,230 @@ footer, header, hgroup, menu, nav, section {
 	display: inline-block;
 }
 #countarea{
-	text-align: center;
 	width: 100px;
     height: 54.5px;
     margin: 8.2px 0px 0px 30px;
 }
+.product_images > article{
+	text-align: center;
+}
+
+@media screen and (max-width: 1680px){
+	#idarea, #pwdarea, #pwdcarea, #namearea, #phonearea, 
+	#emailarea, #find, #questionarea, #pdarea, #pricearea, #maxarea{
+		height: 45px;
+	}
+	#questionarea, #registerarea{
+		height: 300px !important;
+	}
+	#searcharea{
+		width: 50%;
+		height: 50px;
+		margin: 30px 0px 0px 30px;
+		border: 2px solid #c2c2c2;
+		display: inline;
+	}
+	#product_left{
+		width: 42%;
+		height: auto;
+		display: inline-block;
+	}
+	#product_right{
+		width: 42%;
+		height: auto;
+		margin: 30px;
+		display: inline-block;
+	}
+	#product_left > img{
+		width: 100%;
+		height: auto;
+	}
+
+	#postcode{
+		width: 30%;
+		height: 45px;
+		margin: 8.2px 0px 0px 30px;
+		display: inline;
+	}
+	#address{
+		width: 90%;
+		height: 45px;
+		margin: 8.2px 0px 0px 30px;
+	}
+	#detailAddress{
+		width: 90%;
+		height: 45px;
+		margin: 8.2px 0px 0px 30px;
+	}
+	#extraAddress{
+		width: 90%;
+		height: 45px;
+		margin: 8.2px 0px 0px 30px;
+	}
+	#countarea{
+		width: 30%;
+		height: 45px;
+		margin: 8.2px 0px 0px 30px;
+	}
+}
+
+@media screen and (max-width: 1280px){
+	#idarea, #pwdarea, #pwdcarea, #namearea, #phonearea, 
+	#emailarea, #find, #questionarea, #pdarea, #pricearea, #maxarea{
+		height: 40px;
+	}
+	#questionarea, #registerarea{
+		height: 300px !important;
+	}
+	#searcharea{
+		width: 50%;
+		height: 40px;
+		margin: 30px 0px 0px 30px;
+		border: 2px solid #c2c2c2;
+		display: inline;
+	}
+	
+	#product_left{
+		width: 90%;
+		height: auto;
+		display: block;
+	}
+	#product_right{
+		width: 90%;
+		height: auto;
+		margin: 30px;
+		display: block;
+	}
+	#product_left > img{
+		width: 100%;
+		height: auto;
+	}
+
+	#postcode{
+		width: 25%;
+		height: 45px;
+		margin: 8.2px 0px 0px 30px;
+		display: inline;
+	}
+	#address{
+		width: 80%;
+		height: 45px;
+		margin: 8.2px 0px 0px 30px;
+	}
+	#detailAddress{
+		width: 80%;
+		height: 45px;
+		margin: 8.2px 0px 0px 30px;
+	}
+	#extraAddress{
+		width: 80%;
+		height: 45px;
+		margin: 8.2px 0px 0px 30px;
+	}
+	#countarea{
+		width: 25%;
+		height: 45px;
+		margin: 8.2px 0px 0px 30px;
+	}
+}
+@media screen and (max-width: 736px){
+	#idarea, #pwdarea, #pwdcarea, #namearea, #phonearea, 
+	#emailarea, #find, #questionarea, #pdarea, #pricearea, #maxarea{
+		height: 45px;
+	}
+	#questionarea, #registerarea{
+		height: 240px !important;
+	}
+	#searcharea{
+		width: 50%;
+		height: 40px;
+		margin: 30px 0px 0px 30px;
+		border: 2px solid #c2c2c2;
+		display: inline;
+	}
+
+	#product_left{
+		width: 90%;
+		height: auto;
+		display: block;
+	}
+	#product_right{
+		width: 90%;
+		height: auto;
+		margin: 30px;
+		display: block;
+	}
+	#product_left > img{
+		width: 100%;
+		height: auto;
+	}
+	.product_images > article{
+		text-align: center;
+	}
+	#postcode{
+		width: 25%;
+		height: 40px;
+		margin: 8.2px 0px 0px 30px;
+		display: inline;
+	}
+	#address{
+		width: 80%;
+		height: 40px;
+		margin: 8.2px 0px 0px 30px;
+	}
+	#detailAddress{
+		width: 80%;
+		height: 40px;
+		margin: 8.2px 0px 0px 30px;
+	}
+	#extraAddress{
+		width: 80%;
+		height: 40px;
+		margin: 8.2px 0px 0px 30px;
+	}
+	#countarea{
+		width: 25%;
+		height: 40px;
+		margin: 8.2px 0px 0px 30px;
+	}
+}
+@media screen and (max-width: 480px){
+	#idarea, #pwdarea, #pwdcarea, #namearea, #phonearea, 
+	#emailarea, #find, #questionarea, #pdarea, #pricearea, #maxarea{
+		height: 40px;
+	}
+	#questionarea, #registerarea{
+		height: 165px !important;
+	}
+	#searcharea{
+		width: 50%;
+		height: 40px;
+		margin: 30px 0px 0px 30px;
+		border: 2px solid #c2c2c2;
+		display: inline;
+	}
+
+	#product_left{
+		width: 90%;
+		height: auto;
+		display: block;
+	}
+	#product_right{
+		width: 90%;
+		height: auto;
+		margin: 30px;
+		display: block;
+	}
+	#product_left > img{
+		width: 100%;
+		height: auto;
+	}
+
+}
+
+
+
+
 body {
 	line-height: 1;
 }
@@ -1932,7 +2149,6 @@ input, select, textarea {
 		header p {
 			margin-top: 0;
 		}
-
 	}
 
 /* Icon */
@@ -2341,7 +2557,7 @@ input, select, textarea {
 	}
 
 	textarea {
-		padding: 0;
+		padding: 10px;
 		min-height: 3.75em;
 	}
 
@@ -2664,8 +2880,8 @@ input, select, textarea {
 		input[type="button"].primary,
 		button.primary,
 		.button.primary {
-			width: 450px;
-			height: 63px;
+			width: auto;
+			height: auto;
 			/* padding: 11px 26px; */
 			margin: 20px 0px 0px 30px;
 			box-shadow: none;
@@ -2757,85 +2973,6 @@ input, select, textarea {
 			pointer-events: none;
 			opacity: 0.25;
 		}
-/* product images */
-		.product_images {
-		display: -moz-flex;
-		display: -webkit-flex;
-		display: -ms-flex;
-		display: flex;
-		-moz-flex-wrap: wrap;
-		-webkit-flex-wrap: wrap;
-		-ms-flex-wrap: wrap;
-		flex-wrap: wrap;
-		position: relative;
-		margin: -2.5em 0 0 -2.5em;
-	}
-		.product_images article {
-			-moz-transition: -moz-transform 0.5s ease, opacity 0.5s ease;
-			-webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
-			-ms-transition: -ms-transform 0.5s ease, opacity 0.5s ease;
-			transition: transform 0.5s ease, opacity 0.5s ease;
-			position: relative;
-			width: 100%;
-			margin: 2.5em 0 0 38%;
-		}
-
-			.product_images article > .image {
-				-moz-transition: -moz-transform 0.5s ease;
-				-webkit-transition: -webkit-transform 0.5s ease;
-				-ms-transition: -ms-transform 0.5s ease;
-				transition: transform 0.5s ease;
-				position: relative;
-				display: block;
-				width: 100%;
-				border-radius: 4px;
-				overflow: hidden;
-			}
-
-				.product_images article > .image img {
-					display: block;
-					width: 100%;
-				}
-
-				.product_images article > .image:before {
-					pointer-events: none;
-					-moz-transition: background-color 0.5s ease, opacity 0.5s ease;
-					-webkit-transition: background-color 0.5s ease, opacity 0.5s ease;
-					-ms-transition: background-color 0.5s ease, opacity 0.5s ease;
-					transition: background-color 0.5s ease, opacity 0.5s ease;
-					content: '';
-					display: block;
-					position: absolute;
-					top: 0;
-					left: 0;
-					width: 100%;
-					height: 100%;
-					opacity: 1.0;
-					z-index: 1;
-					opacity: 0.8;
-				}
-
-				.product_images article > .image:after {
-					pointer-events: none;
-					-moz-transition: opacity 0.5s ease;
-					-webkit-transition: opacity 0.5s ease;
-					-ms-transition: opacity 0.5s ease;
-					transition: opacity 0.5s ease;
-					content: '';
-					display: block;
-					position: absolute;
-					top: 0;
-					left: 0;
-					width: 100%;
-					height: 100%;
-					/* background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cstyle%3Eline %7B stroke-width: 0.25px%3B stroke: %23ffffff%3B %7D%3C/style%3E%3Cline x1='0' y1='0' x2='100' y2='100' /%3E%3Cline x1='100' y1='0' x2='0' y2='100' /%3E%3C/svg%3E"); */
-					background-position: center;
-					background-repeat: no-repeat;
-					background-size: 100% 100%;
-					opacity: 0.25;
-					z-index: 2;
-				}
-	
 /* Tiles */
 
 	.tiles {
@@ -3056,6 +3193,15 @@ input, select, textarea {
 					margin: 1.25em 0 0 1.25em;
 				}
 
+		.product_images {
+				margin: -1.25em 0 0 -1.25em;
+			}
+
+				.product_images article {
+					width: 100%;
+					margin: 1.25em 0 0 1.25em;
+					text-align: center;
+				}
 		}
 
 		@media screen and (max-width: 980px) {
@@ -3067,6 +3213,15 @@ input, select, textarea {
 				.tiles article {
 					width: calc(50% - 2.5em);
 					margin: 2.5em 0 0 2.5em;
+				}
+			.product_images {
+				margin: -2.5em 0 0 -2.5em;
+			}
+
+				.product_images article {
+					width: 100%;
+					margin: 2.5em 0 0 2.5em;
+					text-align: center;
 				}
 
 		}
@@ -3088,6 +3243,15 @@ input, select, textarea {
 						-ms-transform: scale(1.0);
 						transform: scale(1.0);
 					}
+			.product_images {
+				margin: -1.25em 0 0 -1.25em;
+			}
+
+				.product_images article {
+					width: 100%;
+					margin: 1.25em 0 0 1.25em;
+					text-align: center;
+				}		
 
 		}
 
@@ -3100,6 +3264,15 @@ input, select, textarea {
 				.tiles article {
 					width: 100%;
 					margin: 1.25em 0 0 0;
+				}
+			.product_images {
+				margin: 0;
+			}
+
+				.product_images article {
+					width: 100%;
+					margin: 1.25em 0 0 0;
+					text-align: center;
 				}
 
 		}
