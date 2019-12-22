@@ -20,9 +20,33 @@
 			}
 			else{
 			alert('로그인 후 사용가능 합니다.');
-			//location.href = "login.html";
+			location.href = "login.html";
+			}
+			var getData = new Array();
+			getData = getProduct();
+			getPrice = getData[0];
+			getDescription = getData[1];
+			var pdn = ($.cookie('pdname'));
+			var pdname = '';
+			if((pdn!='null') && (pdn!=undefined) && (pdn!=null)){
+				pdname = pdn;
+			}
+			$.cookie('pdname',null);
+			
+			function getProduct(){	
+/*				pdn 				상품 이름으로 검색*/
+				var price = 33000;	/* 상품 가격 */
+				var description = '함수로 생성된 상품 설명';	/* 상품 설명 */
+				var array = new Array(price, description);
+				return array;
+			}
+			var imgArray = new Array();
+			for(var i=1; i < 9;i++){
+				var imagePath = 'images/' + pdn + '_'+ i + '.jpg';
+				imgArray[i-1] = {src: imagePath};
 			}
 			</script>
+			
 		<!-- Wrapper -->
 			<div id="wrapper">
 
@@ -47,7 +71,7 @@
 							<li><a href="index.html">Home</a></li>
 							<li><a href="login.html"><script>if(loggined) document.write ( '로그아웃' ); else document.write('로그인'); </script></a></li>
 							<li><a href="join.html">회원가입</a></li>
-							<li id="register"><a href="register.html">등록하기</a></li>
+							<li><a href="register.html">등록하기</a></li>
 							<li><a href="question.html">문의하기</a></li>
                             <li><script>if(loggined) document.write (id);</script></li>
 						</ul>
@@ -103,29 +127,6 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 			<script>
-				var getData = new Array();
-				getData = getProduct();
-				getPrice = getData[0];
-				getDescription = getData[1];
-				var pdn = ($.cookie('pdname'));
-				var pdname = '';
-				if((pdn!='null') && (pdn!=undefined) && (pdn!=null)){
-					pdname = pdn;
-				}
-				$.cookie('pdname',null);
-			
-			function getProduct(){	
-/*				pdn 				상품 이름으로 검색*/
-				var price = 33000;	/* 상품 가격 */
-				var description = '함수로 생성된 상품 설명';	/* 상품 설명 */
-				var array = new Array(price, description);
-				return array;
-			}
-			var imgArray = new Array();
-			for(var i=1; i < 9;i++){
-				var imagePath = 'images/' + pdn + '_'+ i + '.jpg';
-				imgArray[i-1] = {src: imagePath};
-			}
 			Vue.component('product', {
                 template: `
                 <div>
@@ -153,8 +154,7 @@
 					price: getPrice,
 					description: getDescription,
 					productName: pdname,
-					mainImg: 'images/' + pdn + '_0' + '.jpg',
-					id: getPdId()
+					mainImg: 'images/' + pdn + '_0' + '.jpg'
                 },
                 methods: {
                     onSubmitForm(e) {
@@ -218,21 +218,167 @@
 					}
 				}
             });
-			if(id != 'admin'){
-				document.getElementById('register').style.display="none";
-		    }
-			function getPdId(){ return $.cookie('pdid');}	/*상품 ID*/
 			function order(data){
-				alert(data.id);
+
+				const xhr = new XMLHttpRequest();
+          xhr.open('POST', 'http://localhost:3000/api/things/'+data._id);
+          xhr.setRequestHeader('Content-type', 'application/json');
+
+          xhr.onreadystatechange = function (e) 
+          {
+            if (xhr.readyState !== XMLHttpRequest.DONE) return;
+
+            if(xhr.status === 201||xhr.status===200) 
+            { // 201: Created
+				console.log('id로 불러오기 성공');
+				
+				var jsa = JSON.parse(xhr.responseText);
+
+				if(jsa[result]==1)
+				{
+					
+					console.log('주문 가능한 갯수 있음');
+
+					/********************************************/
+
+					const xhr1 = new XMLHttpRequest();
+          xhr1.open('POST', 'http://localhost:3000/api/things/update/'+data._id);
+          xhr1.setRequestHeader('Content-type', 'application/json');
+
+          xhr1.onreadystatechange = function (e) 
+          {
+            if (xhr1.readyState !== XMLHttpRequest.DONE) return;
+
+            if(xhr1.status === 201||xhr1.status===200) 
+            { // 201: Created
+				console.log('id로 불러오기 성공');
+				
+				var jsa = JSON.parse(xhr1.responseText);
+
+				if(jsa[result]==11)
+				{
+					
+					console.log('갯수 Update 성공');
+
+					/********************************************/
+
+					const xhr2 = new XMLHttpRequest();
+          xhr2.open('POST', 'http://localhost:3000/api/orders/');
+          xhr2.setRequestHeader('Content-type', 'application/json');
+
+          xhr2.onreadystatechange = function (e) 
+          {
+            if (xhr2.readyState !== XMLHttpRequest.DONE) return;
+
+            if(xhr2.status === 201||xhr2.status===200) 
+            { // 201: Created
+				
+				
+				var jsa = JSON.parse(xhr2.responseText);
+
+				if(jsa[result]==1)
+				{
+					
+					console.log('주문 성공');
+
+					
+
+				}
+				else
+				{
+					console.log('주문 실패');
+
+				}
+                                
+            } 
+            else 
+            {
+                console.log('id로 불러오기 실패');
+            }
+
+
+			
+
+          };
+
+          xhr.send(JSON.stringify({ 
+			"things_id":data._id,
+			"postcode":document.getElementById("postcode").value,
+			"detailaddress":document.getElementById("detailAddress").value,
+			"address":document.getElementById("address").value,
+			"extraaddress":document.getElementById("extraAddress").value,
+			"count":document.getElementById("countarea").value
+		  }));
+		  
+/***************************************************/
+					
+
+				}
+				else
+				{
+					console.log('갯수 Update 실패');
+				}
+                                
+            } 
+            else 
+            {
+                console.log('id로 불러오기 실패');
+            }
+
+
+
+
+          };
+
+          xhr.send(JSON.stringify({ 
+			"_id":data._id,
+			"count":document.getElementById("countarea").value
+		  }));
+		  
+
+
+
+		  /********************************************/
+
+				}
+				else
+				{
+					console.log('주문 가능한 갯수 없음X');
+				}
+                                
+            } 
+            else 
+            {
+                console.log('id로 불러오기 실패');
+            }
+
+
+
+
+          };
+
+          xhr.send(JSON.stringify({ 
+			"_id":data._id,
+			"count":document.getElementById("countarea").value
+          }));
+
+            
+               
+            return true;
+            
+            }
+
+
+
 /*				
-				data.id				상품ID
+				data.id				id
 				data.postcode		우편번호
 				data.address		주소
 				data.detailAddress	상세주소
 				data.extraAddress	참고사항
 				data.count			주문할 수량	*/
-				return true;
-			}
+				
+			
 			</script>
 
 	</body>
