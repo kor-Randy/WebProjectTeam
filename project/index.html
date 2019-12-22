@@ -134,7 +134,7 @@ return dataset;
                             <span class="image">
                                 <img :src=image.imagePath alt=""/>
                             </span>
-                            <a v-on:click="generic(image.name)">
+                            <a v-on:click="generic(image.name,image.id)">
                                 <h2>{{ image.name }}</h2>
                                 <div class="content">
                                     <p>{{ image.description }}</p>
@@ -153,8 +153,8 @@ return dataset;
                     
                 },
                 methods: {
-                    generic: function(n){
-                        setPdnameCookie(n);
+                    generic: function(n,id){
+                        setPdnameCookie(n,id);
                         location.href = "generic.html";
                     }
                 }
@@ -171,7 +171,8 @@ return dataset;
                             $.cookie('AUTH', 'admin');
                             location.href = "index.html";
                         }
-                        else{setPdnameCookie(this.searchText);
+                        else{
+                            setPdnameCookie(this.searchText,getID(this.searchText)/* 상품아이디 받아와야함 */);
                             /*상품이름 쿠키에 넣고 generic으로 이동*/
                             location.href = "generic.html";
                         }
@@ -187,7 +188,6 @@ return dataset;
                 $.cookie('pdid', id, { expires: 1, path: '/' });
                 $.cookie('pdid', id);
                 
-
 alert("z");
               
             var arr1 = Array();
@@ -201,13 +201,11 @@ xhr.onreadystatechange = function()
 {
     alert("44");
     if (xhr.readyState !== XMLHttpRequest.DONE) return;
-
 if(xhr.status === 201||xhr.status===200) 
 { // 201: Created
    alert("hello");
     var data = xhr.responseText;
 var jsa = JSON.parse(data);
-
     for(i=0;i<jsa.length-1;i++)
     {
         alert(jsa[i]._id);
@@ -221,21 +219,17 @@ else
 {
     alert('물품을 불러오는 데에 실패했습니다.');
 }
-
-
-
-
-
 };
 xhr.send(JSON.stringify({ 
             "name":document.getElementById("searcharea").value
           }));
-
             }
-         
-
-
-            
+        
+        function getID(Name)   {
+            /*Name으로 상품 ID받아오기*/
+            var productID = 1;
+            return productID;
+        } 
         </script>
 	</body>
 </html>
